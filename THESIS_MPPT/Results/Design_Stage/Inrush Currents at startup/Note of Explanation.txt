@@ -1,0 +1,6 @@
+As we can realize here, we implement soft switching and we eliminate the high inrush currents that we have at the beginning of the simulation 
+The reason why we  have such Inrush currents are,
+At first the circuit starts from zero  so all the elements are dead, thus the inductor and the output capacitor
+So the problem here is that they try to draw too much from the circuit at startup, so as they charge up
+We see that the problem can be solved pretty nicely by using a soft start method
+We gradually increase the duty cycle, ramping it up until we reach the preferred duty cycle for the certain Operating Point we would be at 
