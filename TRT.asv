@@ -1,0 +1,11 @@
+A=[-D*Ron  -D_prime
+   D_prime      -1/Rout]
+
+B=[1 -D_prime
+   0  0]                         
+
+C=[1  0];
+
+D=[0 0];
+
+X= -inv(A)*B*U

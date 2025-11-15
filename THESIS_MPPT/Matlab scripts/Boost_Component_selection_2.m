@@ -31,6 +31,6 @@ Cin_min = 1/(8*fsw*Rboost) %These  miniminum values we can change them later to 
 Cout_min = D/(n*fsw*Rout)
 
 
-wanted_fsw = (Vmppt*D)/(3*Lmin) % for 10 percent ripple 
+%wanted_fsw = (Vmppt*D)/(3*Lmin) % for 10 percent ripple 
 
 
