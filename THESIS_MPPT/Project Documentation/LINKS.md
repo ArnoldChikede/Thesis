@@ -22,3 +22,9 @@ https://encyclopedia.pub/entry/37496
 
 https://www.researchgate.net/post/How-do-I-eliminate-inrush-current-in-Boost-converter
 
+
+
+**Discussion on why Small signal matters** 
+
+https://electronics.stackexchange.com/questions/431341/why-does-the-small-signal-analysis-work-intuition
+
