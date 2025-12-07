@@ -1,19 +1,40 @@
-D_cycle = 0.671;
-D_prime = 1-D_cycle;
-Cout=  250e-06;
-Rout=12;
-L = 200e-06;
-Vout = 60;
-Gdo= Vout/D_prime;
-Ggo=1/D_prime;
-Wz=(Rout*D_prime^2)/L ;
-Q=  D_prime*Rout*sqrt(Cout/L);
-Wo= D_prime/sqrt(L*Cout);
+clc;
+clear all;
+
+%D_cycle = 0.671;
+%D_prime = 1-D_cycle;
+%Cout=  250e-06;
+%Rout=12;
+%L = 200e-06;
+%Vout = 60;
+%Gdo= Vout/D_prime;
+%Ggo=1/D_prime;
+%Wz=(Rout*D_prime^2)/L ;
+%Q=  D_prime*Rout*sqrt(Cout/L);
+%Wo= D_prime/sqrt(L*Cout);
  
 
 
 
-H = tf( [-Gdo/Wz 1], [ (1/Wo)^2  1/(Q*Wo)  1] )
+%H = tf( [-Gdo/Wz 1], [ (1/Wo)^2  1/(Q*Wo)  1] )
 
 
-bode(H, {2*pi ,30e3*2*pi} )
+%bode(H, {2*pi ,30e3*2*pi} )
+
+
+%ROOT LOCUS 
+b= 1.5
+num = [1];
+den = [ 1 1*b 1]
+
+
+
+H = tf(num,den);
+
+figure
+rlocus(H)
+figure
+pzmap(H)    %poles and zeros 
+figure 
+nyquist(H)
+grid on 

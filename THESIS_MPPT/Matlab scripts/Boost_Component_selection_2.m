@@ -39,5 +39,15 @@ Cout__new= (Vout*D)/(2*Rout*0.02*Vout*fsw)
 
 %wanted_fsw = (Vmppt*D)/(3*Lmin) % for 10 percent ripple 
 
+syms a b c d y u s
+
+eq1 = a == u - (2*c)/(s+2);
+eq2 = b == a/(s+1);
+eq3 = c == b - 3*d;
+eq4 = d == c/s;
+eq5 = y == d + b;
+
+sol = solve([eq1 eq2 eq3 eq4 eq5], [a b c d y]);  % Solve for everything
+H = simplify(sol.y / u) 
 
 
