@@ -4,6 +4,7 @@
 clc; 
 clear all ;
 
+
 Vmppt = 20;   %This is out Vin
 Imppt = 15; 
 Rmppt = Vmppt/Imppt;
@@ -39,7 +40,7 @@ Cout__new= (Vout*D)/(2*Rout*0.02*Vout*fsw)
 
 %wanted_fsw = (Vmppt*D)/(3*Lmin) % for 10 percent ripple 
 
-syms a b c d y u s
+syms a b c d y u s 
 
 eq1 = a == u - (2*c)/(s+2);
 eq2 = b == a/(s+1);
@@ -50,4 +51,14 @@ eq5 = y == d + b;
 sol = solve([eq1 eq2 eq3 eq4 eq5], [a b c d y]);  % Solve for everything
 H = simplify(sol.y / u) 
 
+b_val = 0:0.5:1;
+num = [5 1];
+
+
+    b = 5
+    den = [-2 -7*b -7];
+    TFF = tf(num, den);
+    figure
+    rlocus(TFF)
+   
 
