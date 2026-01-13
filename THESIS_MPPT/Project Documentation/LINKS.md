@@ -24,7 +24,13 @@ https://www.researchgate.net/post/How-do-I-eliminate-inrush-current-in-Boost-con
 
 
 
-**Discussion on why Small signal matters** 
+**Discussion on why Small signal matters**
 
 https://electronics.stackexchange.com/questions/431341/why-does-the-small-signal-analysis-work-intuition
+
+
+
+Choice of Inductor Value
+
+
 

@@ -1,25 +1,70 @@
+clear all
+close all
+clc
+%syms D Ron D_prime Rout Vin Vd V d_hat I ZL ZRC Rout s Cout D_prime L ZT
 
-syms D Ron D_prime Rout Vin Vd
+% A=[-D*Ron  -D_prime
+%    D_prime      -1/Rout]
+% 
+% B=[1 -D_prime
+%    0  0]                         
+% 
+% C=[1  0];
+% 
+% D=[0 0];
+% 
+% U=[Vin
+%    Vd]
+% 
+% %X= -inv(A)   %*B*U
+% 
+% Z = [1 2 -1
+%     -2 0 1
+%     1 -1 0]
+% 
+% transpose(Z)*det(Z)
+% 
+% inv(Z)
 
-A=[-D*Ron  -D_prime
-   D_prime      -1/Rout]
+%ZRC = Rout/(1+ s*R*Cout)
+% ZR = Rout;
+% ZC = 1/(s*Cout);
+% ZL = s*L / D_prime^2;
+% 
+% 
+% ZT= 1/( 1/ZR + 1/ZC + 1/ZL );
+% ZT =simplifyFraction(ZT);
 
-B=[1 -D_prime
-   0  0]                         
 
-C=[1  0];
 
-D=[0 0];
+%TIL = I*d_hat + I*d_hat*(ZL/(ZL+ZRC))
+%IL_d_hat = simplifyFraction(IL/d_hat)
 
-U=[Vin
-   Vd]
 
-%X= -inv(A)   %*B*U
+%I_d_hat_2 =V/Rout * ((1+s*Rout*Cout)/(s^2*L*Cout + s*L/Rout + D_prime^2))
 
-Z = [1 2 -1
-    -2 0 1
-    1 -1 0]
 
-transpose(Z)*det(Z)
+%IDDDDDD= simplifyFraction( I_d_hat_2 + IL_d_hat)
 
-inv(Z)
+
+% Iv_dprime = (V/Rout)*(1+s*Rout*Cout)*D_prime; %/ (s^2*L*Cout + s*L/Rout +  D_prime^2)
+% 
+% Ii_dprime = I*D_prime^2;  %/ (s^2*L*Cout + s*L/Rout +  D_prime^2)
+% 
+% I_total = Iv_dprime + Ii_dprime ;
+
+G_num = [1 200 ]
+G_den = [ 1  400  10e6]
+G = tf(G_num, G_den)
+Gc = tf(1,[1 0])
+
+figure
+ bode(G)
+% figure
+% step(G*Gc)
+% figure
+% rlocus(G*Gc)
+% figure
+% pzmap(G*Gc)
+
+controlSystemDesigner(G)

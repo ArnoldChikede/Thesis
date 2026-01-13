@@ -846,6 +846,13 @@ C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/wifi_provisioning/CMakeFiles/install.dir
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/wifi_provisioning/CMakeFiles/install/local.dir
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/wifi_provisioning/CMakeFiles/install/strip.dir
+C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/__idf_ADC.dir
+C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/edit_cache.dir
+C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/rebuild_cache.dir
+C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/list_install_components.dir
+C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/install.dir
+C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/install/local.dir
+C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/install/strip.dir
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PWM/CMakeFiles/__idf_pwm.dir
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PWM/CMakeFiles/edit_cache.dir
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PWM/CMakeFiles/rebuild_cache.dir
@@ -1019,13 +1026,6 @@ C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/main/CMakeFiles/install.dir
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/main/CMakeFiles/install/local.dir
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/main/CMakeFiles/install/strip.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/__idf_ADC.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/edit_cache.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/rebuild_cache.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/list_install_components.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/install.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/install/local.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/CMakeFiles/install/strip.dir
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/MPPT/CMakeFiles/__idf_MPPT.dir
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/MPPT/CMakeFiles/edit_cache.dir
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/MPPT/CMakeFiles/rebuild_cache.dir

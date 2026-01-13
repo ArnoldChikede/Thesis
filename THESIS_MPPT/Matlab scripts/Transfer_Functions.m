@@ -2,27 +2,27 @@ clc;
 clear all;
 close all
 syms  kp ki Immp D_cycle D_prime s Vout Gdo Ggo Wz Q Wo Rout Cout vg_hat L ZC ZR ZL Z_CR  Iout vout_hat L_ESR d_hat I Ztotal_series V_q I_q 
-        
-  
+  % 
+  % ARNOLD ALWAYS SYNCHRONISE VARIABLES 
 
 %Initialisaztion and Assignment of Variables 
-% 
-% D_cycle = 0.671;
-% D_prime = 1-D_cycle;
-% Cout=  250e-06;
-% Rout=12;
-% L_ESR=1.38e-3;
-% L = 200e-06;
-% Vout = 60;
-% Gdo= Vout/D_prime;
-% Ggo=1/D_prime;
-% Wz=(Rout*D_prime^2)/L ;
-% Q=  D_prime*Rout*sqrt(Cout/L);
-% Wo= D_prime/sqrt(L*Cout);
-% Immp=15 ;
-% I_q =Immp;
-% fs = 25e3
-% Ts = 1/fs
+
+D_cycle = 0.671;
+D_prime = 1-D_cycle;
+Cout=  75e-06 ;
+Rout=12;
+L_ESR=1.38e-3;
+L = 500e-06;
+Vout = 60;
+Gdo= Vout/D_prime;
+Ggo=1/D_prime;
+Wz=(Rout*D_prime^2)/L ;
+Q=  D_prime*Rout*sqrt(Cout/L);
+Wo= D_prime/sqrt(L*Cout);
+Immp=15 ;
+I_q =Immp;
+fs = 25e3
+Ts = 1/fs
 
 % 
 
@@ -44,9 +44,9 @@ syms  kp ki Immp D_cycle D_prime s Vout Gdo Ggo Wz Q Wo Rout Cout vg_hat L ZC ZR
 
 % %Delays
 % 
-% Total_delay_num = [ 1]
-% Total_delay_den = [1.5*Ts  1]
-% Total_delay_TF = tf(Total_delay_num, Total_delay_den);
+Total_delay_num = [ 1]
+Total_delay_den = [1.5*Ts  1]
+Total_delay_TF = tf(Total_delay_num, Total_delay_den);
 
 
 
@@ -80,19 +80,21 @@ Gig = simplify(IL / vg_hat);
 
 
  %Time constants and GAIN values
-%L/Rout*(D_prime)^2
+TL_2=L/Rout*(D_prime)^2
  
  T_L = L/L_ESR                  %      *(D_prime)^2;
  T_C = Rout*Cout;
- Kp_L=5;
+ Kp_L=0.001;
  Ki_L= Kp_L/T_L; 
 
-k= 0:0.1:10;
+TAU_EXP = 1/(1.0e+04 * 0.0556)
+
+k= 0:0.0001:20;
 
 % 
-% Gc_id_num=[Kp_L  Ki_L];
-% Gc_id_den= [1];
-% Gc_id_TF =tf(Gc_id_num, Gc_id_den )
+ Gc_id_num=Kp_L*[1  TAU_EXP];
+Gc_id_den= [1 0];
+ Gc_id_TF =tf(Gc_id_num, Gc_id_den )
 % 
 % 
 % Gc_id_wthout_kp_num = [T_L 1];
@@ -108,10 +110,10 @@ k= 0:0.1:10;
 % figure('Name','Nyquist For Gc_id_TF ')
 % nyquist(Gc_id_TF )
 
-% 
-% Gid_num = [Vout*Cout     Vout/Rout+D_prime*I_q ];
-% Gid_den =  [Cout*L    L/Rout  D_prime^2];
-% Gid_TF = tf(Gid_num , Gid_den)
+
+Gid_num = [Vout*Cout     Vout/Rout+D_prime*I_q ];
+Gid_den =  [Cout*L    L/Rout  D_prime^2];
+Gid_TF = tf(Gid_num , Gid_den)
 % % pole(Gid_TF)
 
 
@@ -120,8 +122,8 @@ k= 0:0.1:10;
 % 
 % figure('Name','Bode For Gid_TF')
 % bode(Gid_TF)
- % figure('Name','Root Locus For Gid_TF ')
- %  rlocus(Gid_TF )
+ %figure('Name','Root Locus For Gid_TF ')
+  %rlocus(Gid_TF )
 % figure('Name','pzmap For Gid_TF ')
 % pzmap(Gid_TF )    %poles and zeros 
 % figure('Name','Nyquist For  Gid_TF ')
@@ -140,23 +142,33 @@ k= 0:0.1:10;
 % grid on 
 
 % 
-% Gid_TF_Total_delay = Gid_TF*Total_delay_TF
+ Gid_TF_Total_delay = Gid_TF*Total_delay_TF;
 % Gid_Controller = PI_TF*Gid_TF
 %Gid_Controller= simplifyFraction(Vout*Cout*s  + Vout/Rout+D_prime*I_q / (Cout*L*s^2 + s^2*L/Rout +D_prime^2 ))
 
 
 
+controlSystemDesigner(Gid_TF_Total_delay)
+pole(Gid_TF_Total_delay)
+zero(Gid_TF_Total_delay)
+
+ figure('Name','Bode For Gid_TF_Total_delay ')
+ bode(Gid_TF_Total_delay )
+
+figure('Name','Root Locus For   For Gid + Total_delay_TF ')
+rlocus( Gid_TF_Total_delay,k)
+
+% figure
+% step(Gid_TF_Total_delay*Gc_id_TF )
+
+figure
+step(Gid_TF_Total_delay )
+
+figure
+pzmap(Gid_TF_Total_delay )
+% % % 
+% 
 % controlSystemDesigner(Gid_TF*Total_delay_TF)
-% pole(Gid_TF*Total_delay_TF)
-
-% figure('Name','Bode For Gid_TF_Total_delay ')
-% bode(Gid_TF_Total_delay )
-% figure('Name','Root Locus For   For Gid + Total_delay_TF ')
-% rlocus(Gid_TF*Total_delay_TF,k)
-% % 
-
-
-
 
 
 %Output Voltage Inductor Current Transfer Functions 
@@ -179,8 +191,15 @@ k= 0:0.1:10;
 
 
 
-
-%Gvd = tf( [-Gdo/Wz Gdo], [ (1/Wo)^2  1/(Q*Wo)  1] )
+% 
+% Gvd = tf( [-Gdo/Wz Gdo], [ (1/Wo)^2  1/(Q*Wo)  1] )
+% %controlSystemDesigner(Gvd)
+% figure
+% step(Gvd)
+% figure
+% rlocus(Gvd)
+% figure
+% bode(Gvd)
 
 % Gvd = ( Gdo - (Gdo*s)/Wz) / (1+ s/(Q*Wo)+ (s/Wo)^2 )
 % Gid = simplifyFraction(Gvd /Rout)

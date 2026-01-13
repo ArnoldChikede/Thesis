@@ -20,7 +20,8 @@ static const char *PWM_TAG = "PWM_COMPONENT";
     
 int Resolution_hz =  8000000;
 int Period_ticks = 50000 ;          //has to be below 65 535 //These also set the resolution we  will deal with 
-int Compare_value = 0;   //For setting the duty cyle of the second generator
+int Compare_value = 0;   //For setting the duty cyle of the first generator
+int Compare_value_2 = 0;  //For setting the duty cyle of the second generator
 float Duty_Ratio ; //= 0.0f;
 float Duty_Ratio_2; // = 0.0f;
 int PWM_Frequency;   //in Hz

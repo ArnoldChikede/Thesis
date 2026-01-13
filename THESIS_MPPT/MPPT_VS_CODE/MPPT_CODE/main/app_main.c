@@ -34,6 +34,9 @@
 #include "driver/gpio.h"
 #include "Led.h"                
 #include "pwm.h"
+#include "ADC.h"
+
+
 
 static const char *TAG = "app_main";
 esp_rmaker_device_t *switch_device;    //Device handles for Switch and Light
@@ -293,6 +296,7 @@ create_led_device();
 
 //After Intitialisation of the Rain Maker and all of its subcomponents we can now start Initialising  other Components in my Project 
 
+Initialise_and_measure_ADC();
 pwm_configuration();  //FOR FUTURE TEY BY ALL MEANS TO HANDLE THE CONFIGURATIONS WITH LOGS  HANCE GIVING US MORE INFORMATION 
 
 
