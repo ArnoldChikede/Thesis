@@ -5,14 +5,14 @@ syms  kp ki Immp D_cycle D_prime s Vout Gdo Ggo Wz Q Wo Rout Cout vg_hat L ZC ZR
   % 
   % ARNOLD ALWAYS SYNCHRONISE VARIABLES 
 
-%Initialisaztion and Assignment of Variables 
+%INITIALISAZTION AND ASSIGNMENT OF VARIABLES 
 
 D_cycle = 0.671;
 D_prime = 1-D_cycle;
 Cout=  75e-06 ;
 Rout=12;
 L_ESR=1.38e-3;
-L = 500e-06;
+L =  400e-06  ;
 Vout = 60;
 Gdo= Vout/D_prime;
 Ggo=1/D_prime;
@@ -92,7 +92,7 @@ TAU_EXP = 1/(1.0e+04 * 0.0556)
 k= 0:0.0001:20;
 
 % 
- Gc_id_num=Kp_L*[1  TAU_EXP];
+ Gc_id_num=[0.392 400];
 Gc_id_den= [1 0];
  Gc_id_TF =tf(Gc_id_num, Gc_id_den )
 % 
@@ -148,24 +148,38 @@ Gid_TF = tf(Gid_num , Gid_den)
 
 
 
-controlSystemDesigner(Gid_TF_Total_delay)
-pole(Gid_TF_Total_delay)
-zero(Gid_TF_Total_delay)
+LOOP_GAIN_OPEN_LOOP_TF = Gc_id_TF*Gid_TF*Total_delay_TF
 
- figure('Name','Bode For Gid_TF_Total_delay ')
- bode(Gid_TF_Total_delay )
+CLOSED_LOOP_TF= LOOP_GAIN_OPEN_LOOP_TF /(1 + LOOP_GAIN_OPEN_LOOP_TF);
 
-figure('Name','Root Locus For   For Gid + Total_delay_TF ')
-rlocus( Gid_TF_Total_delay,k)
 
+% controlSystemDesigner(Gid_TF_Total_delay)
+% pole(Gid_TF_Total_delay)
+% zero(Gid_TF_Total_delay)
+
+ %  figure('Name','Bode For Gid_TF_Total_delay ')
+ % bode(Gid_TF_Total_delay )
+
+ figure('Name','Bode For Open Loop Gain ')
+ bode(LOOP_GAIN_OPEN_LOOP_TF )
+
+ figure('Name','Bode For Closed Loop Gain ')
+ bode(CLOSED_LOOP_TF )
+
+
+
+% 
+% figure('Name','Root Locus For   For Gid + Total_delay_TF ')
+% rlocus( Gid_TF_Total_delay,k)
+% 
+% % figure
+% % step(Gid_TF_Total_delay*Gc_id_TF )
+% 
 % figure
-% step(Gid_TF_Total_delay*Gc_id_TF )
-
-figure
-step(Gid_TF_Total_delay )
-
-figure
-pzmap(Gid_TF_Total_delay )
+% step(Gid_TF_Total_delay )
+% 
+% figure
+% pzmap(Gid_TF_Total_delay )
 % % % 
 % 
 % controlSystemDesigner(Gid_TF*Total_delay_TF)

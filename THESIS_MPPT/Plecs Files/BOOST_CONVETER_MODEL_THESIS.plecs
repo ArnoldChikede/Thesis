@@ -3,7 +3,7 @@ Plecs {
   Version       "4.8"
   CircuitModel  "ContStateSpace"
   StartTime     "0.0"
-  TimeSpan      "0.4"
+  TimeSpan      "0.5"
   Timeout       ""
   Solver        "radau"
   MaxStep       "1e-3"
@@ -39,7 +39,8 @@ Plecs {
 "_time = 0.15;\n\n%Transfer functions \n\n\nVout = 60;\nGdo= Vout/D_prime;\nGg"
 "o=1/D_prime;\nWz=(Rout*D_prime^2)/L ;\nQ=  D_prime*Rout*sqrt(Cout/L);\nWo= D_"
 "prime/sqrt(L*Cout);\n \n \n %Time constants\n T_L = L/L_ESR;\n T_C = Rout*Cou"
-"t\n \n \n A=(Vout*D_prime^2)/Rout"
+"t\n A=(Vout*D_prime^2)/Rout\n \n \n \n %Controller Parameters \n \nkp =0.392;"
+"\nki =400 ; "
   InitialState  "1"
   SystemState   ""
   TaskingMode   "1"
@@ -64,9 +65,9 @@ Plecs {
   ScriptsDialogGeometry "[487 239 446 243]"
   ScriptsDialogSplitterPos "95"
   Schematic {
-    Location      [0, 23; 1366, 681]
-    ZoomFactor    0.873847
-    SliderPosition [0, 192]
+    Location      [0, 27; 1366, 685]
+    ZoomFactor    1.49863
+    SliderPosition [162, 409]
     ShowBrowser   off
     BrowserWidth  100
     Component {
@@ -738,32 +739,32 @@ Plecs {
       Type          Scope
       Name          "Scope2"
       Show          on
-      Position      [1025, 560]
+      Position      [1025, 555]
       Direction     up
       Flipped       off
       LabelPosition south
-      Location      [-1920, -170; 0, 819]
+      Location      [0, 27; 1366, 744]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
-"G0AQQByAGUAYQAAAAAA/////wAAAIQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
-"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAeAAAAAW/w"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAAB4AAAABQAP///wAAB4AAAANjAAAA"
+"G0AQQByAGUAYQAAAAAA/////wAAAKwA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAVWAAAAW/w"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAABVYAAABQAP///wAABVYAAAJTAAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
-      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAB"
-"AAAAGQAAAAFAAAAZAAAAAIAAABkAAAAAwAAAGQAAAABAAAAZAAAAAgAAABkAAAACQAAAGQAAAAGAA"
-"AAZAAAAAcAAABkAAAHbwAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAC0AAA"
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
+"QAAAGQAAAAIAAAAZAAAAAUAAABkAAAABAAAAGQAAAAHAAAAZAAAAAYAAABkAAAAAQAAAGQAAAADAA"
+"AAZAAAAAIAAABkAAAFRQAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAC0AAA"
 "AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
 "AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
-"Aa7AAAAAQAAAAAAAAPoAAAAACQ="
+"ASRAAAAAQAAAAAAAAPoAAAAACQ="
       PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA"
 "AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-"=="
-      Axes          "3"
+"AAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      Axes          "4"
       TimeRange     "0"
       ScrollingMode "1"
       SingleTimeAxis "1"
-      Open          "1"
+      Open          "0"
       Ts            "-1"
       SampleLimit   "0"
       XAxisLabel    "Time / s"
@@ -801,12 +802,33 @@ Plecs {
         KeepBaseline  off
         BaselineValue 0
       }
+      Axis {
+        Name          ""
+        AutoScale     1
+        MinValue      0
+        MaxValue      1
+        Signals       {}
+        SignalTypes   [ ]
+        Untangle      0
+        KeepBaseline  off
+        BaselineValue 0
+      }
       Fourier {
         SingleXAxis       on
         AxisLabel         "Frequency / Hz"
         Scaling           0
         PhaseDisplay      0
         ShowFourierLegend off
+        Axis {
+          Name          ""
+          AutoScale     1
+          MinValue      0
+          MaxValue      1
+          Signals       {}
+          Untangle      0
+          KeepBaseline  off
+          BaselineValue 0
+        }
         Axis {
           Name          ""
           AutoScale     1
@@ -4241,7 +4263,7 @@ Plecs {
       LabelPosition south
       Parameter {
         Variable      "Width"
-        Value         "3"
+        Value         "2"
         Show          off
       }
     }
@@ -4314,22 +4336,22 @@ Plecs {
       Frame         [-40, -25; 40, 25]
       Parameter {
         Variable      "cont_type"
-        Value         "1"
+        Value         "3"
         Show          off
       }
       Parameter {
         Variable      "par_source"
-        Value         "2"
+        Value         "1"
         Show          off
       }
       Parameter {
         Variable      "kp"
-        Value         "1"
+        Value         "0.392"
         Show          off
       }
       Parameter {
         Variable      "ki"
-        Value         "1"
+        Value         "400"
         Show          off
       }
       Parameter {
@@ -4776,17 +4798,17 @@ Plecs {
       Direction     up
       Flipped       off
       LabelPosition south
-      Location      [0, 27; 1366, 754]
+      Location      [0, 27; 1366, 756]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAAKwA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
 "///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAAAAAAAAPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABQAP///wAABVYAAAK8AAAA"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABQAP///wAABVYAAAK+AAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
-      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
-"AAAAGQAAAAJAAAAZAAAAAIAAABkAAAAAwAAAGQAAAABAAAAZAAAAAYAAABkAAAABwAAAGQAAAAEAA"
-"AAZAAAAAUAAABkAAAA2AAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAC0AAA"
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAB"
+"AAAAGQAAAAFAAAAZAAAAAIAAABkAAAAAwAAAGQAAAABAAAAZAAAAAgAAABkAAAACQAAAGQAAAAGAA"
+"AAZAAAAAcAAABkAAAA2AAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAC0AAA"
 "AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
 "AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
 "AAkAAAAAQAAAAAAAAPoAAAAACQ="
@@ -4916,17 +4938,17 @@ Plecs {
       Direction     up
       Flipped       off
       LabelPosition south
-      Location      [-1920, -148; 0, 841]
+      Location      [0, 27; 1370, 756]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAADQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
 "///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAAAAAAAAPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABQAP///wAAB4AAAAPCAAAA"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABQAP///wAABVoAAAK+AAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
-      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
-"QAAAGQAAAAGAAAAZAAAAAcAAABkAAAABAAAAGQAAAAFAAAAZAAAAAIAAABkAAAAAwAAAGQAAAABAA"
-"AAZAAAAAgAAABkAAAA2AAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAC0AAA"
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAB"
+"AAAAGQAAAAFAAAAZAAAAAIAAABkAAAAAwAAAGQAAAABAAAAZAAAAAgAAABkAAAACQAAAGQAAAAGAA"
+"AAZAAAAAcAAABkAAAA2AAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAC0AAA"
 "AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
 "AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
 "AAkAAAAAQAAAAAAAAPoAAAAACQ="
@@ -5956,30 +5978,6 @@ Plecs {
       }
     }
     Component {
-      Type          Delay
-      Name          "Delay2"
-      Show          on
-      Position      [465, 475]
-      Direction     right
-      Flipped       off
-      LabelPosition south
-      Parameter {
-        Variable      "N"
-        Value         "1"
-        Show          off
-      }
-      Parameter {
-        Variable      "X0"
-        Value         "0"
-        Show          off
-      }
-      Parameter {
-        Variable      "Ts"
-        Value         "Ts"
-        Show          off
-      }
-    }
-    Component {
       Type          Scope
       Name          "Scope21"
       Show          on
@@ -5987,27 +5985,27 @@ Plecs {
       Direction     up
       Flipped       off
       LabelPosition south
-      Location      [-1920, -199; 0, 790]
+      Location      [0, 27; 1370, 756]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAAFwA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
-"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAeAAAAAivw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAAB4AAAABQAP///wAAB4AAAAM0AAAA"
+"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAVaAAAAY/w"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAABVoAAABQAP///wAABVoAAAJXAAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
-      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL+AMAAAAHAAAAB"
-"AAAAGQAAAAFAAAAZAAAAAMAAABkAAAACAAAAGQAAAAJAAAAZAAAAAYAAABkAAAABwAAAGQAAAeAAA"
-"AACwEAAAEAAAAAAAAAAAAAAABk/////wAAAIEAAAAAAAAACwAAANsAAAABAAAAAAAAAGQAAAABAAA"
-"AAAAAAGQAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAB"
-"AAAAAAAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABAAAAAAAABd0AAAABAAAAAAAAA+gAA"
-"AAAJA=="
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
+"QAAAGQAAAAIAAAAZAAAAAUAAABkAAAABAAAAGQAAAAHAAAAZAAAAAYAAABkAAAAAQAAAGQAAAADAA"
+"AAZAAAAAIAAABkAAAFWgAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAADbAAA"
+"AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
+"AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
+"AR/AAAAAQAAAAAAAAPoAAAAACQ="
       PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA"
 "AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
       Axes          "2"
       TimeRange     "0"
       ScrollingMode "1"
       SingleTimeAxis "1"
-      Open          "1"
+      Open          "0"
       Ts            "-1"
       SampleLimit   "0"
       XAxisLabel    "Time / s"
@@ -6160,7 +6158,7 @@ Plecs {
       Type          From
       Name          "From41"
       Show          off
-      Position      [850, 670]
+      Position      [845, 705]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -6172,6 +6170,405 @@ Plecs {
       Parameter {
         Variable      "Visibility"
         Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          From
+      Name          "From42"
+      Show          off
+      Position      [845, 685]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "iref"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          SignalMux
+      Name          "Mux4"
+      Show          off
+      Position      [900, 685]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Width"
+        Value         "2"
+        Show          off
+      }
+    }
+    Component {
+      Type          CScript
+      Name          "C-Script"
+      Show          on
+      Position      [520, 365]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "DialogGeometry"
+        Value         "[0 22 1366 697]"
+        Show          off
+      }
+      Parameter {
+        Variable      "NumInputs"
+        Value         "2"
+        Show          off
+      }
+      Parameter {
+        Variable      "NumOutputs"
+        Value         "21"
+        Show          off
+      }
+      Parameter {
+        Variable      "NumContStates"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "NumDiscStates"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "NumZCSignals"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "DirectFeedthrough"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "Ts"
+        Value         "Ts"
+        Show          off
+      }
+      Parameter {
+        Variable      "TerminalBasedSampleTimes"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "Parameters"
+        Value         "[kp,  ki, Ts  ]"
+        Show          off
+      }
+      Parameter {
+        Variable      "LangStandard"
+        Value         "2"
+        Show          off
+      }
+      Parameter {
+        Variable      "GnuExtensions"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "RuntimeCheck"
+        Value         "2"
+        Show          off
+      }
+      Parameter {
+        Variable      "HighlightLevel"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "Declarations"
+        Value         "//We might However change to Double \n"
+"\n"
+"double kp ;\n"
+"double ki ;  \n"
+"double Ts  ; \n"
+"\n"
+"\n"
+"double Iref = 0.0;  //Would like to have type checling \t\t\t\t\t\t//So thats"
+" why i dont use Preprocessor Macros eg  #define\n"
+"double IL= 0.0;\n"
+"double Error = 0.0 ; \n"
+"\n"
+"static double Kp_contribution =  0.0 ;\n"
+"static double Ki_contribution = 0.0; \n"
+"\n"
+"const int Upper_saturation_Limit = 1;\n"
+"const int Lower_saturation_Limit = 0;\n"
+"\n"
+"double PI_Controller_Output;\n"
+"double PI_Controller_Output_Saturation_Block ;\n"
+"\n"
+"\n"
+"double duty_control_signal = 0.0 ; \n"
+"\n"
+"static double Satuaration_block_state_2_input = 0.0;\n"
+" \n"
+" "
+        Show          off
+      }
+      Parameter {
+        Variable      "StartFcn"
+        Value         "kp = ParamRealData(0,0);\n"
+"ki = ParamRealData(0,1);\n"
+"Ts = ParamRealData(0,2);"
+        Show          off
+      }
+      Parameter {
+        Variable      "OutputFcn"
+        Value         "Iref = Input(0) ; \n"
+"IL = Input(1) ;\n"
+"Error = Iref - IL ; \n"
+"\n"
+"//CODE FOR THE PI CONTROLLER\n"
+"//SPLIT IN TWO AND THEN ADD EACH CONTRUBUTION \n"
+"//FORWARD EULER APPROXIMATION USED FOR DISCRETIZING THE INTERGRATOR\n"
+"\n"
+"Kp_contribution = kp * Error ;\n"
+"\n"
+"Ki_contribution = (Error-Satuaration_block_state_2_input)*ki*Ts + Ki_contribu"
+"tion ; \n"
+"\n"
+"PI_Controller_Output = Kp_contribution + Ki_contribution ;\n"
+"\n"
+" // INCLUDE SATURAION BLOCK \n"
+" \n"
+" if(PI_Controller_Output <  Lower_saturation_Limit) \n"
+" {\n"
+"\tPI_Controller_Output_Saturation_Block  = Lower_saturation_Limit;\n"
+" }\n"
+" \n"
+" \n"
+" else if(PI_Controller_Output > Upper_saturation_Limit) \n"
+" {\n"
+"\t PI_Controller_Output_Saturation_Block  = Upper_saturation_Limit;\n"
+" }\n"
+"  \n"
+"else { PI_Controller_Output_Saturation_Block = PI_Controller_Output; }\n"
+"\n"
+" duty_control_signal =  PI_Controller_Output_Saturation_Block ;\n"
+"  \n"
+"   \n"
+" Satuaration_block_state_2_input  =  (PI_Controller_Output  - PI_Controller_O"
+"utput_Saturation_Block)* 1/kp ;\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"Output(0) = duty_control_signal   ; \n"
+"\n"
+"\n"
+        Show          off
+      }
+      Parameter {
+        Variable      "UpdateFcn"
+        Value         ""
+        Show          off
+      }
+      Parameter {
+        Variable      "DerivativeFcn"
+        Value         ""
+        Show          off
+      }
+      Parameter {
+        Variable      "TerminateFcn"
+        Value         ""
+        Show          off
+      }
+      Parameter {
+        Variable      "StoreCustomStateFcn"
+        Value         ""
+        Show          off
+      }
+      Parameter {
+        Variable      "RestoreCustomStateFcn"
+        Value         ""
+        Show          off
+      }
+    }
+    Component {
+      Type          SignalMux
+      Name          "Mux5"
+      Show          off
+      Position      [440, 365]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Width"
+        Value         "2"
+        Show          off
+      }
+    }
+    Component {
+      Type          From
+      Name          "From43"
+      Show          off
+      Position      [380, 360]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "iref"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          Scope
+      Name          "Scope22"
+      Show          on
+      Position      [770, 345]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Location      [0, 27; 1366, 714]
+      State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
+"G0AQQByAGUAYQAAAAAA/////wAAAFwA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
+"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAAAAAAAAPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQAAAAAAP////8AAABQAP///wAABVYAAAKUAAAA"
+"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
+"AAAAA=="
+      SavedViews    "AAAAAgAAAAA="
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
+"QAAAGQAAAAIAAAAZAAAAAUAAABkAAAABAAAAGQAAAAHAAAAZAAAAAYAAABkAAAAAQAAAGQAAAADAA"
+"AAZAAAAAIAAABkAAAA2AAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAC0AAA"
+"AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
+"AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
+"AAkAAAAAQAAAAAAAAPoAAAAACQ="
+      PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA"
+"AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+      Axes          "2"
+      TimeRange     "0"
+      ScrollingMode "1"
+      SingleTimeAxis "1"
+      Open          "0"
+      Ts            "-1"
+      SampleLimit   "0"
+      XAxisLabel    "Time / s"
+      ShowLegend    "1"
+      Axis {
+        Name          ""
+        AutoScale     1
+        MinValue      0
+        MaxValue      1
+        Signals       {}
+        SignalTypes   [ ]
+        Untangle      0
+        KeepBaseline  off
+        BaselineValue 0
+      }
+      Axis {
+        Name          ""
+        AutoScale     1
+        MinValue      0
+        MaxValue      1
+        Signals       {}
+        SignalTypes   [ ]
+        Untangle      0
+        KeepBaseline  off
+        BaselineValue 0
+      }
+      Fourier {
+        SingleXAxis       on
+        AxisLabel         "Frequency / Hz"
+        Scaling           0
+        PhaseDisplay      0
+        ShowFourierLegend off
+        Axis {
+          Name          ""
+          AutoScale     1
+          MinValue      0
+          MaxValue      1
+          Signals       {}
+          Untangle      0
+          KeepBaseline  off
+          BaselineValue 0
+        }
+        Axis {
+          Name          ""
+          AutoScale     1
+          MinValue      0
+          MaxValue      1
+          Signals       {}
+          Untangle      0
+          KeepBaseline  off
+          BaselineValue 0
+        }
+      }
+    }
+    Component {
+      Type          From
+      Name          "From45"
+      Show          off
+      Position      [585, 335]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "v_control"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          From
+      Name          "From44"
+      Show          off
+      Position      [370, 380]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "I_L"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          Delay
+      Name          "Delay2"
+      Show          on
+      Position      [470, 475]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "N"
+        Value         "1"
+        Show          off
+      }
+      Parameter {
+        Variable      "X0"
+        Value         "0"
+        Show          off
+      }
+      Parameter {
+        Variable      "Ts"
+        Value         "Ts"
         Show          off
       }
     }
@@ -6371,7 +6768,7 @@ Plecs {
       Type          Signal
       SrcComponent  "From7"
       SrcTerminal   1
-      Points        [900, 535; 900, 550]
+      Points        [900, 535; 900, 540]
       DstComponent  "Scope2"
       DstTerminal   1
     }
@@ -7266,7 +7663,7 @@ Plecs {
       Type          Signal
       SrcComponent  "From33"
       SrcTerminal   1
-      Points        [870, 645; 870, 630]
+      Points        [870, 645; 870, 635]
       DstComponent  "Mux1"
       DstTerminal   3
     }
@@ -7360,7 +7757,6 @@ Plecs {
       Type          Signal
       SrcComponent  "From32"
       SrcTerminal   1
-      Points        [870, 625; 870, 620]
       DstComponent  "Mux1"
       DstTerminal   2
     }
@@ -7368,7 +7764,7 @@ Plecs {
       Type          Signal
       SrcComponent  "Mux"
       SrcTerminal   1
-      Points        [955, 565; 955, 560]
+      Points        [955, 565; 955, 550]
       DstComponent  "Scope2"
       DstTerminal   2
     }
@@ -7376,7 +7772,7 @@ Plecs {
       Type          Signal
       SrcComponent  "Mux1"
       SrcTerminal   1
-      Points        [960, 630; 960, 570]
+      Points        [960, 630; 960, 560]
       DstComponent  "Scope2"
       DstTerminal   3
     }
@@ -7403,15 +7799,8 @@ Plecs {
       Points        [275, 360]
       Branch {
         Points        [275, 410]
-        Branch {
-          Points        [275, 435]
-          DstComponent  "Discrete PID\nController"
-          DstTerminal   3
-        }
-        Branch {
-          DstComponent  "Goto20"
-          DstTerminal   1
-        }
+        DstComponent  "Goto20"
+        DstTerminal   1
       }
       Branch {
         DstComponent  "1/Ti"
@@ -7698,20 +8087,6 @@ Plecs {
     }
     Connection {
       Type          Signal
-      SrcComponent  "Discrete PID\nController"
-      SrcTerminal   2
-      DstComponent  "Delay2"
-      DstTerminal   1
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "Delay2"
-      SrcTerminal   2
-      DstComponent  "Goto15"
-      DstTerminal   1
-    }
-    Connection {
-      Type          Signal
       SrcComponent  "Mux3"
       SrcTerminal   1
       Points        [2280, 785; 2280, 800]
@@ -7732,21 +8107,6 @@ Plecs {
       Points        [2185, 620; 2185, 640]
       DstComponent  "Scope12"
       DstTerminal   1
-    }
-    Connection {
-      Type          Signal
-      SrcComponent  "From31"
-      SrcTerminal   1
-      Points        [910, 430; 1050, 430]
-      Branch {
-        Points        [1060, 430]
-        DstComponent  "Comparator"
-        DstTerminal   1
-      }
-      Branch {
-        DstComponent  "Goto8"
-        DstTerminal   1
-      }
     }
     Connection {
       Type          Signal
@@ -7819,9 +8179,92 @@ Plecs {
       Type          Signal
       SrcComponent  "From41"
       SrcTerminal   1
-      Points        [875, 670; 875, 640]
-      DstComponent  "Mux1"
+      Points        [860, 705; 860, 690]
+      DstComponent  "Mux4"
+      DstTerminal   3
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "From42"
+      SrcTerminal   1
+      Points        [860, 685; 860, 680]
+      DstComponent  "Mux4"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Mux4"
+      SrcTerminal   1
+      Points        [965, 685; 965, 570]
+      DstComponent  "Scope2"
       DstTerminal   4
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "From31"
+      SrcTerminal   1
+      Points        [910, 430; 1050, 430]
+      Branch {
+        Points        [1060, 430]
+        DstComponent  "Comparator"
+        DstTerminal   1
+      }
+      Branch {
+        DstComponent  "Goto8"
+        DstTerminal   1
+      }
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Mux5"
+      SrcTerminal   1
+      DstComponent  "C-Script"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "From43"
+      SrcTerminal   1
+      DstComponent  "Mux5"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "From44"
+      SrcTerminal   1
+      Points        [410, 380; 410, 370]
+      DstComponent  "Mux5"
+      DstTerminal   3
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "From45"
+      SrcTerminal   1
+      Points        [670, 335; 670, 340]
+      DstComponent  "Scope22"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "C-Script"
+      SrcTerminal   2
+      Points        [615, 365; 615, 350]
+      DstComponent  "Scope22"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Discrete PID\nController"
+      SrcTerminal   2
+      DstComponent  "Delay2"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Delay2"
+      SrcTerminal   2
+      DstComponent  "Goto15"
+      DstTerminal   1
     }
     Annotation {
       Name          "<html><body>\n<p><span style=\" color:#aa0000;\">Dont for"
@@ -8037,6 +8480,22 @@ Plecs {
     Annotation {
       Name          "<html><body>\n<p>0.112</p></body></html>"
       Position      [1230, 755]
+    } 
+    RectangleAnnotation {
+      Position     [280, 490]
+      Width        40
+      Height       20
+      CornerRadius 3
+      Thickness    2
+      PenColor     4278190080
+      PenAlpha     1
+      BrushColor   0
+      BrushAlpha   0
+    } 
+    Annotation {
+      Name          "<html><body>\n<p>0.4</p>\n<p> </p>\n<p> </p></body></html"
+">"
+      Position      [505, 690]
     } 
   }
 }
