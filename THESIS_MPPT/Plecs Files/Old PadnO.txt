@@ -1,0 +1,106 @@
+
+//MPPT CODE  .....ITHER WE USE PERTUB AND OBSERVE OR INCREMENTAL CONDUCTANCE 
+
+//PERTUB AND OBSERVE 
+
+I_PV = Input(0);
+V_PV = Input(1);
+I_PV_Init = Input(2);
+P_PV = Input(3);
+
+
+//if (A>1){
+//I_PV_Init= 0;
+//}
+
+//A+=1;
+
+
+
+
+//P_PV =I_PV * V_PV ;
+
+ delta_P = P_PV - P_PV_PREV;
+ delta_V = V_PV - V_PV_PREV;
+
+
+if ( delta_P<0.00000000000000001)
+{
+ Iref = Iref   ;
+	  	
+}
+
+
+if (fabs(delta_P) >=0.002 && fabs( delta_V) >= 0.00002)
+//else  
+{
+
+//A+=1;
+			if(delta_P > 0.0)
+				{
+						if( delta_V >0.0 )
+					{
+						 Iref  += delta_Iref;
+						 }
+					else
+						 {Iref  -= delta_Iref;
+						 }
+					
+				}
+
+
+			else {
+						
+						if( delta_V > 0.0)
+						{
+						 Iref -= delta_Iref;
+						}
+						else
+						{ 
+						Iref += delta_Iref;
+						 }
+						 
+			    }
+
+
+
+
+}else{
+Iref = Iref;
+}
+
+
+Iref = Iref   ;// +I_PV_Init ;
+
+
+P_PV_PREV = P_PV ;
+V_PV_PREV = V_PV ;
+
+
+if (Iref < 0.0)  {   Iref = 0.0;}
+if (Iref > IREF_MAX) {Iref = IREF_MAX;}
+
+//Iref = (Iref/15 )*1 ; 
+
+
+//Iref = 3.69;
+Output(0)=Iref;
+Output(1)=P_PV;
+Output(2)=P_PV_PREV  ;              
+Output(3)=V_PV;
+Output(4)=V_PV_PREV;
+//Output(5)=A;
+Output(5)=I_PV_Init;
+
+
+
+
+// Tunings 
+
+
+if (fabs(delta_P) > 0.3){delta_Iref = 0.05 ; }
+
+else if (fabs(delta_P) > 0.1 ){delta_Iref = 0.03 ; }
+
+else {delta_Iref = 0.01 ; }
+
