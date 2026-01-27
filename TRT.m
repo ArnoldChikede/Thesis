@@ -53,13 +53,13 @@ clc
 % 
 % I_total = Iv_dprime + Ii_dprime ;
 
-G_num = [1 200 ]
-G_den = [ 1  400  10e6]
+G_num = [10  0 ]
+G_den = [0.25 1]
 G = tf(G_num, G_den)
-Gc = tf(1,[1 0])
+
 
 figure
- bode(G)
+bode(G)
 % figure
 % step(G*Gc)
 % figure
@@ -67,4 +67,4 @@ figure
 % figure
 % pzmap(G*Gc)
 
-controlSystemDesigner(G)
+%controlSystemDesigner(G)
