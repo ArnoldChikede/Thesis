@@ -35,6 +35,11 @@
 #include "Led.h"                
 #include "pwm.h"
 #include "ADC.h"
+#include "MPPT.h"
+#include "PI_Controller.h"
+#include "GP_Timers.h"
+#include "isr.h"
+#include "tasks.h"
 
 
 
@@ -164,6 +169,9 @@ static void event_handler(void* arg, esp_event_base_t event_base,
 void app_main()
 {
 
+
+ 
+
     printf("Starting Switch Example by arnold \n");
     /* Initialize Application specific hardware drivers and
      * set initial state.
@@ -204,6 +212,7 @@ void app_main()
     }
 
     /* Create a Switch device.
+    Take a Device to be a function perfomed by the ESP32 chi and you can have many of them attached to the same node(Which is the respective ESP32 in this case)
      * You can optionally use the helper API esp_rmaker_switch_device_create() to
      * avoid writing code for adding the name and power parameters.
      */
@@ -245,13 +254,13 @@ void app_main()
 
 //Call functions for creating the led deivce
 
-create_led_device();
+ create_MPPT_device(&mppt_params);
 
 
     /* Add this switch device to the node 
         And all other respective devices from the components folders*/
     esp_rmaker_node_add_device(node, switch_device);
-    esp_rmaker_node_add_device(node,  light_device);
+    esp_rmaker_node_add_device(node, MPPT_device);
 
 
     //call the functiond to create different devices
@@ -293,11 +302,27 @@ create_led_device();
     }
 
 
-
+printf("Finished Initialisation of Rain Maker and all of its subcomponents \n");
 //After Intitialisation of the Rain Maker and all of its subcomponents we can now start Initialising  other Components in my Project 
 
-Initialise_and_measure_ADC();
-pwm_configuration();  //FOR FUTURE TEY BY ALL MEANS TO HANDLE THE CONFIGURATIONS WITH LOGS  HANCE GIVING US MORE INFORMATION 
+
+
+//Probablly to have a contollble Thing we can have a button that start a function that wakes up the MPPT and PI controller to start working together with timers aadn PWM CONFIG  but Later 
+create_semaphores_isr();  //Creating the Semaphores for the ISR to use
+
+//Here we create the tasks Initially so that when counter starts  and give  semaphore  The Task is already present and waiting  to be executed
+create_task_MPPT_loop_logic();// 
+create_task_PI_loop_logic();
+intialise_and_start_gptimer();  //Initialising the GPTimer and Starting it
+//pwm_configuration();  //FOR FUTURE TEY BY ALL MEANS TO HANDLE THE CONFIGURATIONS WITH LOGS  HANCE GIVING US MORE INFORMATION 
+//Initialise_and_measure_ADC();
+
+
+//These can later be controlled how they start or stop..
+//MPPT();   //Supposed to be Called as a Task//Startint the MPPT component  Set by rate of Mppt Frequency 
+//PI();    //Supposed to be called as a Task //Starting the PI controller component
+
+
 
 
 }

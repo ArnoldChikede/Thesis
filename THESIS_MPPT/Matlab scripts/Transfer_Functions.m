@@ -1,102 +1,65 @@
 clc;
 clear all;
 close all
-syms  kp ki Immp D_cycle D_prime s Vout Gdo Ggo Wz Q Wo Rout Cout vg_hat L ZC ZR ZL Z_CR  Iout vout_hat L_ESR d_hat I Ztotal_series V_q I_q 
-  % 
-  % ARNOLD ALWAYS SYNCHRONISE VARIABLES 
+%syms  kp ki Immp D_cycle D_prime s Vout Gdo Ggo Wz Q Wo Rout Cout vg_hat L ZC ZR ZL Z_CR  Iout vout_hat L_ESR d_hat I Ztotal_series V_q I_q 
+  
+%%%%%%%%%%%%%%%%%$%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  
 
+       %%%%%%%%%%%%%%% ARNOLD ALWAYS SYNCHRONISE VARIABLES%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %INITIALISAZTION AND ASSIGNMENT OF VARIABLES 
 
-D_cycle = 0.671;
-D_prime = 1-D_cycle;
-Cout=  75e-06 ;
-Rout=12;
-L_ESR=1.38e-3;
-L =  400e-06  ;
+Vmppt = 17.6 ;  
+Imppt = 3.69  ;
 Vout = 60;
-Gdo= Vout/D_prime;
-Ggo=1/D_prime;
-Wz=(Rout*D_prime^2)/L ;
-Q=  D_prime*Rout*sqrt(Cout/L);
-Wo= D_prime/sqrt(L*Cout);
-Immp=15 ;
-I_q =Immp;
-fs = 25e3
-Ts = 1/fs
+Rmppt = Vmppt/Imppt;
+Rboost = Rmppt;
 
-% 
+fs = 80e3  ;
+Ts = 1/fs ;
+  
+Rout = Rboost/((Vmppt/Vout)^2 )
 
-% TOTAL_I = (Vout/D_prime - Vout)/(L/D_prime^2*s + L_ESR) + Immp +  Vout/(L/D_prime^2*s + L_ESR)
-% TOTAL_I= simplify(TOTAL_I)
+D_cycle= 1- (sqrt(Rboost/Rout))
+D_prime = 1-D_cycle;
 
-% TOTAL_I_num=[Immp*L   Immp*L_ESR*D_prime^2+Vout*D_prime]
-% TOTAL_I_den= [L  L_ESR*D_prime^2 ]
-% TOTAL_I_TF = tf(TOTAL_I_num,TOTAL_I_den)
-% step(TOTAL_I_TF)
+Cout= 14e-06 ;
+L_ESR=1.38e-3;
+L = 150e-06;
+
+I_q =Imppt;
 
 
+fo = (D_prime)/(2*pi*sqrt(L*Cout))    %Resonant Freq
+Wo = (D_prime)/(sqrt(L*Cout)) 
 
-
-
-
-
-
-
-% %Delays
-% 
-Total_delay_num = [ 1]
-Total_delay_den = [1.5*Ts  1]
-Total_delay_TF = tf(Total_delay_num, Total_delay_den);
-
-
-
-%Inductor Current Transfer Functions 
-
-%Gig (Line to Inductor Current Transfer Function)Calculation
-ZC = 1/(s*Cout)
-ZR = Rout
-ZL = (L*s) / D_prime^2
-Z_RC = (ZC*ZR)/(ZC+ZR)
-Ztotal_series = Z_RC + ZL;
-IL =  (vg_hat/D_prime) / Ztotal_series ; 
-Gig = simplify(IL / vg_hat);
-
-
-
-
-
-
-
-%Gid(Control to output Voltage TF) Calculation ..used superposition for the final circuit
-
-% i_hat_voltage_source = (V_q*d_hat/D_prime) / (Ztotal_series);
-% %i_hat_current_source = (I*d_hat)* (1/ZL)/(1/ZL + 1/ZC + I/Rout)
-% 
-% i_hat_current_source = (I_q*d_hat)*(Z_RC/(ZL+Z_RC))    ;        % (1/ZL)/(1/ZL + 1/ZC + I/Rout)
-% 
-% i_hat= i_hat_voltage_source + i_hat_current_source;
-% Gid = simplifyFraction(i_hat / d_hat)                         TO
-% EVALUATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
- %Time constants and GAIN values
-TL_2=L/Rout*(D_prime)^2
+Zeta = L*Wo/(2*Rout*(D_prime)^2)  % The L_eff seen = L/Dprime^2    thats why we have the Dprime appering in teh Damping Ratio Equation  
  
- T_L = L/L_ESR                  %      *(D_prime)^2;
- T_C = Rout*Cout;
- Kp_L=0.001;
- Ki_L= Kp_L/T_L; 
+Wd = Wo*sqrt(1-Zeta^2)
+
+f_RHPZ_hz = (Rout*(D_prime)^2)/(2*pi*L)
+f_RHPZ_rad = (Rout*(D_prime)^2)/(L)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Time constants and GAIN values
+
+TL_2=L/Rout*(D_prime)^2
+T_L = L/L_ESR       %  *(D_prime)^2;
+T_C = Rout*Cout;
+Kp_L=0.001;
+Ki_L= Kp_L/T_L; 
 
 TAU_EXP = 1/(1.0e+04 * 0.0556)
 
-k= 0:0.0001:20;
 
-% 
- Gc_id_num=[0.392 400];
-Gc_id_den= [1 0];
- Gc_id_TF =tf(Gc_id_num, Gc_id_den )
-% 
-% 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
 % Gc_id_wthout_kp_num = [T_L 1];
 % Gc_id_wthout_kp_den = [T_L];
 % Gc_id_wthout_kp_TF = tf(Gc_id_wthout_kp_num, Gc_id_wthout_kp_den )
@@ -111,140 +74,133 @@ Gc_id_den= [1 0];
 % nyquist(Gc_id_TF )
 
 
-Gid_num = [Vout*Cout     Vout/Rout+D_prime*I_q ];
-Gid_den =  [Cout*L    L/Rout  D_prime^2];
-Gid_TF = tf(Gid_num , Gid_den)
-% % pole(Gid_TF)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Duty to Inductor Current Transfer Functions 
+
+
+
+%Gid_num = [Vout*Cout     Vout/Rout+D_prime*I_q ];
+%Gid_den =  [Cout*L    L/Rout  D_prime^2];
+%Gid_TF = tf(Gid_num , Gid_den)
+
+
+Gid_main = 2*Vout/((1-D_cycle)^2*Rout)
+Gid_num = [Gid_main*(Rout*Cout/2)  Gid_main];
+Gid_den = [L*Cout/(1-D_cycle)^2  L/(Rout*(1-D_cycle)^2)  1 ];
+Gid_TF =tf(Gid_num , Gid_den)
+
+
+%step(Gid_TF)
+
 
 
 
 % step(Gid_TF)
-% 
 % figure('Name','Bode For Gid_TF')
 % bode(Gid_TF)
- %figure('Name','Root Locus For Gid_TF ')
-  %rlocus(Gid_TF )
-% figure('Name','pzmap For Gid_TF ')
-% pzmap(Gid_TF )    %poles and zeros 
+%figure('Name','Root Locus For Gid_TF ')
+ %rlocus(Gid_TF )
+ figure('Name','pzmap For Gid_TF ')
+ pzmap(Gid_TF )    %poles and zeros 
 % figure('Name','Nyquist For  Gid_TF ')
 % nyquist(Gid_TF )
 % grid on 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Delays
+
+Total_delay_num = [ 1]
+Total_delay_den = [1.5*Ts  1]
+Total_delay_TF = tf(Total_delay_num, Total_delay_den);
 
 
 % figure('Name','Bode For Total_delay_TF')
 % bode(Total_delay_TF)
 % figure('Name','Root Locus For Total_delay_TF ')
- % rlocus(Total_delay_TF)
-% figure('Name','pzmap For Total_delay_TF ')
-% pzmap(Total_delay_TF )    %poles and zeros 
+% rlocus(Total_delay_TF)
+ figure('Name','pzmap For Total_delay_TF ')
+pzmap(Total_delay_TF )    %poles and zeros 
 % figure('Name','Nyquist For  Total_delay_TF ')
 % nyquist(Total_delay_TF )
 % grid on 
-
-% 
- Gid_TF_Total_delay = Gid_TF*Total_delay_TF;
-% Gid_Controller = PI_TF*Gid_TF
-%Gid_Controller= simplifyFraction(Vout*Cout*s  + Vout/Rout+D_prime*I_q / (Cout*L*s^2 + s^2*L/Rout +D_prime^2 ))
-
-
-
-LOOP_GAIN_OPEN_LOOP_TF = Gc_id_TF*Gid_TF*Total_delay_TF
-
-CLOSED_LOOP_TF= LOOP_GAIN_OPEN_LOOP_TF /(1 + LOOP_GAIN_OPEN_LOOP_TF);
 
 
 % controlSystemDesigner(Gid_TF_Total_delay)
 % pole(Gid_TF_Total_delay)
 % zero(Gid_TF_Total_delay)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Controller 
 
- %  figure('Name','Bode For Gid_TF_Total_delay ')
- % bode(Gid_TF_Total_delay )
+kp = 0.0376;
+ki =0; 
 
- figure('Name','Bode For Open Loop Gain ')
- bode(LOOP_GAIN_OPEN_LOOP_TF )
+Gc_id_TF_num = [kp ki]
+Gc_id_TF_den = [1 0]
+Gc_id_TF = tf(Gc_id_TF_num, Gc_id_TF_den);
 
- figure('Name','Bode For Closed Loop Gain ')
- bode(CLOSED_LOOP_TF )
+%-
+% ,pzmap(Gc_id_TF)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Gid Combined with delay 
+
+Gid_TF_Total_delay = Gid_TF*Total_delay_TF;
+
+k= 0:0.0001:25;
+
+% Gid_Controller = PI_TF*Gid_TF
+%Gid_Controller= simplifyFraction(Vout*Cout*s  + Vout/Rout+D_prime*I_q / (Cout*L*s^2 + s^2*L/Rout +D_prime^2 ))
 
 
-
-% 
 % figure('Name','Root Locus For   For Gid + Total_delay_TF ')
 % rlocus( Gid_TF_Total_delay,k)
+% figure('Name','Bode For   For Gid + Total_delay_TF ')
+% bode( Gid_TF_Total_delay)
 % 
-% % figure
-% % step(Gid_TF_Total_delay*Gc_id_TF )
-% 
+%figure('Name','Step For   For Gid + Total_delay_TF + Gc_id_TF ')
+%step(Gid_TF_Total_delay*Gc_id_TF ) 
 % figure
-% step(Gid_TF_Total_delay )
-% 
+% step(Gid_TF_Total_delay ) 
 % figure
 % pzmap(Gid_TF_Total_delay )
-% % % 
-% 
-% controlSystemDesigner(Gid_TF*Total_delay_TF)
-
-
-%Output Voltage Inductor Current Transfer Functions 
-
-
-%Gid (Control to Inductor Current TF) calculation 
+% controlSystemDesigner(Gid_TF_Total_delay )
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
-%Gvg (Line to output Voltage TF) Calculation 
-% vout_hat =  (vg_hat/D_prime)*(Z_RC/(ZL+Z_RC));
-% Gvg = simplifyFraction (vout_hat / vg_hat)
-% 
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Open and Closed Loop Gain 
+
+
+LOOP_GAIN_OPEN_LOOP_TF = Gc_id_TF*Gid_TF*Total_delay_TF ;
 % 
 % 
-
-
-
-
-
-
-
-% 
-% Gvd = tf( [-Gdo/Wz Gdo], [ (1/Wo)^2  1/(Q*Wo)  1] )
-% %controlSystemDesigner(Gvd)
-% figure
-% step(Gvd)
-% figure
-% rlocus(Gvd)
-% figure
-% bode(Gvd)
-
-% Gvd = ( Gdo - (Gdo*s)/Wz) / (1+ s/(Q*Wo)+ (s/Wo)^2 )
-% Gid = simplifyFraction(Gvd /Rout)
+CLOSED_LOOP_TF= LOOP_GAIN_OPEN_LOOP_TF /(1 + LOOP_GAIN_OPEN_LOOP_TF);
 % 
 % 
-% Gvg = ( Ggo) / (1+ s/(Q*Wo)+ (s/Wo)^2 )
-% Gig = simplifyFraction(Gvg /Rout)
-
-
-
-% %bode(Gvd, {2*pi ,30e3*2*pi} )
-% figure;
-% nyquist(Gvd)
-
-
-
-
-
-
-
-
+figure('Name','Bode For Open Loop Gain ')
+bode(LOOP_GAIN_OPEN_LOOP_TF )
 % 
-% %ROOT LOCUS 
-% b= 1.5
-% num = [1];
-% den = [ 1 1*b 1]
-% 
-% 
-% 
-% H = tf(num,den);
-% 
+ % figure('Name','Bode For Closed Loop Gain ')
+ % bode(CLOSED_LOOP_TF )
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Keywords from toolbox
+
 % figure
 % rlocus(H)
 % figure
@@ -252,3 +208,4 @@ CLOSED_LOOP_TF= LOOP_GAIN_OPEN_LOOP_TF /(1 + LOOP_GAIN_OPEN_LOOP_TF);
 % figure 
 % nyquist(H)
 % grid on 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

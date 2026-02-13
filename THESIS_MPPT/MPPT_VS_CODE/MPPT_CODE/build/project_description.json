@@ -25,8 +25,8 @@
         "COMPONENT_KCONFIGS_PROJBUILD" : "C:/Espressif/frameworks/esp-idf-v5.5.1/components/bootloader/Kconfig.projbuild;C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_app_format/Kconfig.projbuild;C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_rom/Kconfig.projbuild;C:/Espressif/frameworks/esp-idf-v5.5.1/components/esptool_py/Kconfig.projbuild;C:/Espressif/frameworks/esp-idf-v5.5.1/components/partition_table/Kconfig.projbuild;C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/main/Kconfig.projbuild;C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/espressif__rmaker_app_network/Kconfig.projbuild;C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_rainmaker/Kconfig.projbuild"
     },
     "common_component_reqs": [ "cxx", "newlib", "freertos", "esp_hw_support", "heap", "log", "soc", "hal", "esp_rom", "esp_common", "esp_system", "xtensa" ],
-    "build_components" : [ "ADC", "Led", "MPPT", "app_trace", "app_update", "bootloader", "bootloader_support", "bt", "cmock", "console", "cxx", "driver", "efuse", "esp-tls", "esp_adc", "esp_app_format", "esp_bootloader_format", "esp_coex", "esp_common", "esp_driver_ana_cmpr", "esp_driver_bitscrambler", "esp_driver_cam", "esp_driver_dac", "esp_driver_gpio", "esp_driver_gptimer", "esp_driver_i2c", "esp_driver_i2s", "esp_driver_isp", "esp_driver_jpeg", "esp_driver_ledc", "esp_driver_mcpwm", "esp_driver_parlio", "esp_driver_pcnt", "esp_driver_ppa", "esp_driver_rmt", "esp_driver_sdio", "esp_driver_sdm", "esp_driver_sdmmc", "esp_driver_sdspi", "esp_driver_spi", "esp_driver_touch_sens", "esp_driver_tsens", "esp_driver_twai", "esp_driver_uart", "esp_driver_usb_serial_jtag", "esp_eth", "esp_event", "esp_gdbstub", "esp_hid", "esp_http_client", "esp_http_server", "esp_https_ota", "esp_https_server", "esp_hw_support", "esp_lcd", "esp_local_ctrl", "esp_mm", "esp_netif", "esp_netif_stack", "esp_partition", "esp_phy", "esp_pm", "esp_psram", "esp_ringbuf", "esp_rom", "esp_security", "esp_system", "esp_timer", "esp_vfs_console", "esp_wifi", "espcoredump", "espressif__button", "espressif__cbor", "espressif__cmake_utilities", "espressif__esp_daylight", "espressif__esp_diag_data_store", "espressif__esp_diagnostics", "espressif__esp_insights", "espressif__esp_rainmaker", "espressif__esp_schedule", "espressif__esp_secure_cert_mgr", "espressif__jsmn", "espressif__json_generator", "espressif__json_parser", "espressif__led_indicator", "espressif__led_strip", "espressif__mdns", "espressif__network_provisioning", "espressif__qrcode", "espressif__rmaker_app_insights", "espressif__rmaker_app_network", "espressif__rmaker_app_reset", "espressif__rmaker_common", "esptool_py", "fatfs", "freertos", "hal", "heap", "http_parser", "idf_test", "ieee802154", "json", "log", "lwip", "main", "mbedtls", "mqtt", "newlib", "nvs_flash", "nvs_sec_provider", "openthread", "partition_table", "perfmon", "protobuf-c", "protocomm", "pthread", "pwm", "rt", "sdmmc", "soc", "spi_flash", "spiffs", "tcp_transport", "ulp", "unity", "usb", "vfs", "wear_levelling", "wifi_provisioning", "wpa_supplicant", "xtensa", "" ],
-    "build_component_paths" : [ "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/ADC", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/Led", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/MPPT", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/app_trace", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/app_update", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/bootloader", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/bootloader_support", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/bt", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/cmock", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/console", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/cxx", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/driver", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/efuse", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp-tls", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_adc", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_app_format", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_bootloader_format", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_coex", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_common", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_ana_cmpr", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_bitscrambler", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_cam", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_dac", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_gpio", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_gptimer", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_i2c", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_i2s", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_isp", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_jpeg", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_ledc", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_mcpwm", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_parlio", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_pcnt", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_ppa", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_rmt", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_sdio", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_sdm", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_sdmmc", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_sdspi", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_spi", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_touch_sens", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_tsens", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_twai", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_uart", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_usb_serial_jtag", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_eth", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_event", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_gdbstub", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_hid", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_http_client", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_http_server", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_https_ota", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_https_server", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_hw_support", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_lcd", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_local_ctrl", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_mm", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_netif", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_netif_stack", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_partition", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_phy", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_pm", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_psram", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_ringbuf", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_rom", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_security", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_system", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_timer", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_vfs_console", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_wifi", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/espcoredump", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__button", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__cbor", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__cmake_utilities", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_daylight", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_diag_data_store", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_diagnostics", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_insights", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_rainmaker", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_schedule", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_secure_cert_mgr", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__jsmn", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__json_generator", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__json_parser", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__led_indicator", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__led_strip", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__mdns", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__network_provisioning", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__qrcode", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__rmaker_app_insights", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/espressif__rmaker_app_network", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__rmaker_app_reset", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__rmaker_common", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esptool_py", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/fatfs", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/freertos", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/hal", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/heap", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/http_parser", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/idf_test", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/ieee802154", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/json", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/log", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/lwip", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/main", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/mbedtls", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/mqtt", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/newlib", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/nvs_flash", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/nvs_sec_provider", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/openthread", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/partition_table", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/perfmon", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/protobuf-c", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/protocomm", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/pthread", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/pwm", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/rt", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/sdmmc", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/soc", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/spi_flash", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/spiffs", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/tcp_transport", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/ulp", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/unity", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/usb", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/vfs", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/wear_levelling", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/wifi_provisioning", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/wpa_supplicant", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/xtensa", "" ],
+    "build_components" : [ "ADC", "GP_Timers", "Led", "MPPT", "PI_Controller", "app_trace", "app_update", "bootloader", "bootloader_support", "bt", "cmock", "console", "cxx", "driver", "efuse", "esp-tls", "esp_adc", "esp_app_format", "esp_bootloader_format", "esp_coex", "esp_common", "esp_driver_ana_cmpr", "esp_driver_bitscrambler", "esp_driver_cam", "esp_driver_dac", "esp_driver_gpio", "esp_driver_gptimer", "esp_driver_i2c", "esp_driver_i2s", "esp_driver_isp", "esp_driver_jpeg", "esp_driver_ledc", "esp_driver_mcpwm", "esp_driver_parlio", "esp_driver_pcnt", "esp_driver_ppa", "esp_driver_rmt", "esp_driver_sdio", "esp_driver_sdm", "esp_driver_sdmmc", "esp_driver_sdspi", "esp_driver_spi", "esp_driver_touch_sens", "esp_driver_tsens", "esp_driver_twai", "esp_driver_uart", "esp_driver_usb_serial_jtag", "esp_eth", "esp_event", "esp_gdbstub", "esp_hid", "esp_http_client", "esp_http_server", "esp_https_ota", "esp_https_server", "esp_hw_support", "esp_lcd", "esp_local_ctrl", "esp_mm", "esp_netif", "esp_netif_stack", "esp_partition", "esp_phy", "esp_pm", "esp_psram", "esp_ringbuf", "esp_rom", "esp_security", "esp_system", "esp_timer", "esp_vfs_console", "esp_wifi", "espcoredump", "espressif__button", "espressif__cbor", "espressif__cmake_utilities", "espressif__esp_daylight", "espressif__esp_diag_data_store", "espressif__esp_diagnostics", "espressif__esp_insights", "espressif__esp_rainmaker", "espressif__esp_schedule", "espressif__esp_secure_cert_mgr", "espressif__jsmn", "espressif__json_generator", "espressif__json_parser", "espressif__led_indicator", "espressif__led_strip", "espressif__mdns", "espressif__network_provisioning", "espressif__qrcode", "espressif__rmaker_app_insights", "espressif__rmaker_app_network", "espressif__rmaker_app_reset", "espressif__rmaker_common", "esptool_py", "fatfs", "freertos", "hal", "heap", "http_parser", "idf_test", "ieee802154", "isr", "json", "log", "lwip", "main", "mbedtls", "mqtt", "newlib", "nvs_flash", "nvs_sec_provider", "openthread", "partition_table", "perfmon", "protobuf-c", "protocomm", "pthread", "pwm", "rt", "sdmmc", "soc", "spi_flash", "spiffs", "tasks", "tcp_transport", "ulp", "unity", "usb", "vfs", "wear_levelling", "wifi_provisioning", "wpa_supplicant", "xtensa", "" ],
+    "build_component_paths" : [ "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/ADC", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/GP_Timers", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/Led", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/MPPT", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/PI_Controller", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/app_trace", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/app_update", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/bootloader", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/bootloader_support", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/bt", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/cmock", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/console", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/cxx", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/driver", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/efuse", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp-tls", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_adc", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_app_format", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_bootloader_format", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_coex", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_common", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_ana_cmpr", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_bitscrambler", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_cam", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_dac", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_gpio", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_gptimer", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_i2c", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_i2s", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_isp", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_jpeg", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_ledc", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_mcpwm", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_parlio", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_pcnt", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_ppa", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_rmt", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_sdio", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_sdm", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_sdmmc", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_sdspi", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_spi", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_touch_sens", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_tsens", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_twai", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_uart", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_driver_usb_serial_jtag", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_eth", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_event", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_gdbstub", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_hid", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_http_client", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_http_server", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_https_ota", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_https_server", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_hw_support", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_lcd", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_local_ctrl", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_mm", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_netif", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_netif_stack", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_partition", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_phy", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_pm", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_psram", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_ringbuf", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_rom", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_security", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_system", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_timer", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_vfs_console", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esp_wifi", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/espcoredump", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__button", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__cbor", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__cmake_utilities", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_daylight", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_diag_data_store", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_diagnostics", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_insights", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_rainmaker", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_schedule", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__esp_secure_cert_mgr", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__jsmn", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__json_generator", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__json_parser", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__led_indicator", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__led_strip", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__mdns", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__network_provisioning", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__qrcode", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__rmaker_app_insights", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/espressif__rmaker_app_network", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__rmaker_app_reset", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/managed_components/espressif__rmaker_common", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/esptool_py", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/fatfs", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/freertos", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/hal", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/heap", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/http_parser", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/idf_test", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/ieee802154", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/isr", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/json", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/log", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/lwip", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/main", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/mbedtls", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/mqtt", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/newlib", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/nvs_flash", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/nvs_sec_provider", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/openthread", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/partition_table", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/perfmon", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/protobuf-c", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/protocomm", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/pthread", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/pwm", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/rt", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/sdmmc", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/soc", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/spi_flash", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/spiffs", "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/tasks", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/tcp_transport", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/ulp", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/unity", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/usb", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/vfs", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/wear_levelling", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/wifi_provisioning", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/wpa_supplicant", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/xtensa", "" ],
     "build_component_info" : {
         "ADC": {
             "alias": "idf::ADC",
@@ -43,6 +43,21 @@
             "sources": [ "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/ADC/ADC.c" ],
             "include_dirs": [ "include" ]
         },
+        "GP_Timers": {
+            "alias": "idf::GP_Timers",
+            "target": "___idf_GP_Timers",
+            "prefix": "idf",
+            "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/GP_Timers",
+            "type": "LIBRARY",
+            "lib": "__idf_GP_Timers",
+            "reqs": [],
+            "priv_reqs": [ "esp_driver_gptimer", "isr" ],
+            "managed_reqs": [],
+            "managed_priv_reqs": [],
+            "file": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/GP_Timers/libGP_Timers.a",
+            "sources": [ "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/GP_Timers/GP_Timers.c" ],
+            "include_dirs": [ "include" ]
+        },
         "Led": {
             "alias": "idf::Led",
             "target": "___idf_Led",
@@ -50,7 +65,7 @@
             "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/Led",
             "type": "LIBRARY",
             "lib": "__idf_Led",
-            "reqs": [ "espressif__esp_rainmaker", "espressif__rmaker_app_network", "espressif__rmaker_app_insights", "esp_driver_gpio", "main" ],
+            "reqs": [ "espressif__esp_rainmaker", "espressif__rmaker_app_network", "espressif__rmaker_app_insights", "esp_driver_gpio", "main", "PI_Controller", "ADC", "MPPT" ],
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
@@ -66,11 +81,26 @@
             "type": "LIBRARY",
             "lib": "__idf_MPPT",
             "reqs": [],
-            "priv_reqs": [],
+            "priv_reqs": [ "ADC" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/MPPT/libMPPT.a",
             "sources": [ "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/MPPT/MPPT.c" ],
+            "include_dirs": [ "include" ]
+        },
+        "PI_Controller": {
+            "alias": "idf::PI_Controller",
+            "target": "___idf_PI_Controller",
+            "prefix": "idf",
+            "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/PI_Controller",
+            "type": "LIBRARY",
+            "lib": "__idf_PI_Controller",
+            "reqs": [],
+            "priv_reqs": [ "MPPT", "ADC" ],
+            "managed_reqs": [],
+            "managed_priv_reqs": [],
+            "file": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PI_Controller/libPI_Controller.a",
+            "sources": [ "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/PI_Controller/PI_Controller.c" ],
             "include_dirs": [ "include" ]
         },
         "app_trace": {
@@ -1543,6 +1573,21 @@
             "sources": [],
             "include_dirs": [ "include" ]
         },
+        "isr": {
+            "alias": "idf::isr",
+            "target": "___idf_isr",
+            "prefix": "idf",
+            "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/isr",
+            "type": "LIBRARY",
+            "lib": "__idf_isr",
+            "reqs": [ "esp_driver_gpio", "freertos" ],
+            "priv_reqs": [],
+            "managed_reqs": [],
+            "managed_priv_reqs": [],
+            "file": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/isr/libisr.a",
+            "sources": [ "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/isr/isr.c" ],
+            "include_dirs": [ "include" ]
+        },
         "json": {
             "alias": "idf::json",
             "target": "___idf_json",
@@ -1595,7 +1640,7 @@
             "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/main",
             "type": "LIBRARY",
             "lib": "__idf_main",
-            "reqs": [ "ADC", "pwm", "espressif__esp_rainmaker", "esp_driver_gpio", "espressif__button", "espressif__led_indicator", "espressif__rmaker_app_reset", "espressif__rmaker_app_network", "espressif__rmaker_app_insights", "nvs_flash", "protocomm", "driver", "espressif__rmaker_common", "mbedtls", "Led" ],
+            "reqs": [ "ADC", "pwm", "espressif__esp_rainmaker", "esp_driver_gpio", "espressif__button", "espressif__led_indicator", "espressif__rmaker_app_reset", "espressif__rmaker_app_network", "espressif__rmaker_app_insights", "nvs_flash", "protocomm", "driver", "espressif__rmaker_common", "mbedtls", "Led", "MPPT", "PI_Controller", "GP_Timers", "isr", "tasks" ],
             "priv_reqs": [ "espressif__button", "espressif__esp_rainmaker", "espressif__led_indicator", "espressif__rmaker_app_insights", "espressif__rmaker_app_network", "espressif__rmaker_app_reset" ],
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__button", "espressif__esp_rainmaker", "espressif__led_indicator", "espressif__rmaker_app_insights", "espressif__rmaker_app_network", "espressif__rmaker_app_reset" ],
@@ -1856,6 +1901,21 @@
             "managed_priv_reqs": [],
             "file": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/spiffs/libspiffs.a",
             "sources": [ "C:/Espressif/frameworks/esp-idf-v5.5.1/components/spiffs/spiffs_api.c", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/spiffs/spiffs/src/spiffs_cache.c", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/spiffs/spiffs/src/spiffs_check.c", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/spiffs/spiffs/src/spiffs_gc.c", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/spiffs/spiffs/src/spiffs_hydrogen.c", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/spiffs/spiffs/src/spiffs_nucleus.c", "C:/Espressif/frameworks/esp-idf-v5.5.1/components/spiffs/esp_spiffs.c" ],
+            "include_dirs": [ "include" ]
+        },
+        "tasks": {
+            "alias": "idf::tasks",
+            "target": "___idf_tasks",
+            "prefix": "idf",
+            "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/tasks",
+            "type": "LIBRARY",
+            "lib": "__idf_tasks",
+            "reqs": [ "isr", "MPPT", "PI_Controller", "Led" ],
+            "priv_reqs": [],
+            "managed_reqs": [],
+            "managed_priv_reqs": [],
+            "file": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/tasks/libtasks.a",
+            "sources": [ "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/tasks/tasks.c" ],
             "include_dirs": [ "include" ]
         },
         "tcp_transport": {
@@ -3297,7 +3357,7 @@
             "prefix": "idf",
             "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/main",
             "lib": "__idf_main",
-            "reqs": [ "ADC", "pwm", "espressif__esp_rainmaker", "esp_driver_gpio", "espressif__button", "espressif__led_indicator", "espressif__rmaker_app_reset", "espressif__rmaker_app_network", "espressif__rmaker_app_insights", "nvs_flash", "protocomm", "driver", "espressif__rmaker_common", "mbedtls", "Led" ],
+            "reqs": [ "ADC", "pwm", "espressif__esp_rainmaker", "esp_driver_gpio", "espressif__button", "espressif__led_indicator", "espressif__rmaker_app_reset", "espressif__rmaker_app_network", "espressif__rmaker_app_insights", "nvs_flash", "protocomm", "driver", "espressif__rmaker_common", "mbedtls", "Led", "MPPT", "PI_Controller", "GP_Timers", "isr", "tasks" ],
             "priv_reqs": [ "espressif__button", "espressif__esp_rainmaker", "espressif__led_indicator", "espressif__rmaker_app_insights", "espressif__rmaker_app_network", "espressif__rmaker_app_reset" ],
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__button", "espressif__esp_rainmaker", "espressif__led_indicator", "espressif__rmaker_app_insights", "espressif__rmaker_app_network", "espressif__rmaker_app_reset" ],
@@ -3315,13 +3375,25 @@
             "managed_priv_reqs": [],
             "include_dirs": [ "include" ]
         },
+        "GP_Timers": {
+            "alias": "idf::GP_Timers",
+            "target": "___idf_GP_Timers",
+            "prefix": "idf",
+            "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/GP_Timers",
+            "lib": "__idf_GP_Timers",
+            "reqs": [],
+            "priv_reqs": [ "esp_driver_gptimer", "isr" ],
+            "managed_reqs": [],
+            "managed_priv_reqs": [],
+            "include_dirs": [ "include" ]
+        },
         "Led": {
             "alias": "idf::Led",
             "target": "___idf_Led",
             "prefix": "idf",
             "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/Led",
             "lib": "__idf_Led",
-            "reqs": [ "espressif__esp_rainmaker", "espressif__rmaker_app_network", "espressif__rmaker_app_insights", "esp_driver_gpio", "main" ],
+            "reqs": [ "espressif__esp_rainmaker", "espressif__rmaker_app_network", "espressif__rmaker_app_insights", "esp_driver_gpio", "main", "PI_Controller", "ADC", "MPPT" ],
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],
@@ -3334,7 +3406,19 @@
             "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/MPPT",
             "lib": "__idf_MPPT",
             "reqs": [],
-            "priv_reqs": [],
+            "priv_reqs": [ "ADC" ],
+            "managed_reqs": [],
+            "managed_priv_reqs": [],
+            "include_dirs": [ "include" ]
+        },
+        "PI_Controller": {
+            "alias": "idf::PI_Controller",
+            "target": "___idf_PI_Controller",
+            "prefix": "idf",
+            "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/PI_Controller",
+            "lib": "__idf_PI_Controller",
+            "reqs": [],
+            "priv_reqs": [ "MPPT", "ADC" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "include_dirs": [ "include" ]
@@ -3351,6 +3435,18 @@
             "managed_priv_reqs": [ "espressif__network_provisioning", "espressif__qrcode" ],
             "include_dirs": [ "." ]
         },
+        "isr": {
+            "alias": "idf::isr",
+            "target": "___idf_isr",
+            "prefix": "idf",
+            "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/isr",
+            "lib": "__idf_isr",
+            "reqs": [ "esp_driver_gpio", "freertos" ],
+            "priv_reqs": [],
+            "managed_reqs": [],
+            "managed_priv_reqs": [],
+            "include_dirs": [ "include" ]
+        },
         "pwm": {
             "alias": "idf::pwm",
             "target": "___idf_pwm",
@@ -3358,6 +3454,18 @@
             "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/pwm",
             "lib": "__idf_pwm",
             "reqs": [ "driver" ],
+            "priv_reqs": [],
+            "managed_reqs": [],
+            "managed_priv_reqs": [],
+            "include_dirs": [ "include" ]
+        },
+        "tasks": {
+            "alias": "idf::tasks",
+            "target": "___idf_tasks",
+            "prefix": "idf",
+            "dir": "C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/components/tasks",
+            "lib": "__idf_tasks",
+            "reqs": [ "isr", "MPPT", "PI_Controller", "Led" ],
             "priv_reqs": [],
             "managed_reqs": [],
             "managed_priv_reqs": [],

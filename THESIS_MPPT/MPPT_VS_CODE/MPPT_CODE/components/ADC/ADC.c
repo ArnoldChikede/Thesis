@@ -50,6 +50,16 @@ uint32_t ret_num_bytes_read = 0;
 static uint8_t adc_read_buf[EXAMPLE_READ_LEN];
 float scaled_data =0.0;
 int adc_measurement =0;
+
+
+
+
+double IL=1.2;  //This is just for testing the MPPT algorithm and the PI controller before we get the real values from the ADC component
+double V_PV = 5.0; //This is just for testing the MPPT algorithm and the PI controller before we get the real values from the ADC component     
+double I_PV = 1.0;
+
+
+
 //Continuous mode 
 
 

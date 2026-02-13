@@ -9,7 +9,6 @@ extern int PWM_Frequency;
 extern int Period_ticks;
 extern int Compare_value ;     
 extern int Compare_value_2 ;  
-
 extern int Resolution_hz;
 
 void pwm_configuration(void);
