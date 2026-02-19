@@ -28,7 +28,7 @@ D_prime = 1-D_cycle;
 
 Cout= 14e-06 ;
 L_ESR=1.38e-3;
-L = 150e-06;
+L = 220e-06;
 
 I_q =Imppt;
 
@@ -165,7 +165,7 @@ k= 0:0.0001:25;
 % step(Gid_TF_Total_delay ) 
 % figure
 % pzmap(Gid_TF_Total_delay )
-% controlSystemDesigner(Gid_TF_Total_delay )
+controlSystemDesigner(Gid_TF_Total_delay )
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -184,8 +184,8 @@ LOOP_GAIN_OPEN_LOOP_TF = Gc_id_TF*Gid_TF*Total_delay_TF ;
 CLOSED_LOOP_TF= LOOP_GAIN_OPEN_LOOP_TF /(1 + LOOP_GAIN_OPEN_LOOP_TF);
 % 
 % 
-figure('Name','Bode For Open Loop Gain ')
-bode(LOOP_GAIN_OPEN_LOOP_TF )
+%figure('Name','Bode For Open Loop Gain ')
+%bode(LOOP_GAIN_OPEN_LOOP_TF )
 % 
  % figure('Name','Bode For Closed Loop Gain ')
  % bode(CLOSED_LOOP_TF )

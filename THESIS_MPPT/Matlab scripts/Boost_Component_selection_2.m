@@ -36,7 +36,7 @@ Cin_min = 1/(8*fsw*Rboost) %These  miniminum values we can change them later to 
 
 %%Cout_min = D/(n*fsw*Rout)
 
-Cout__new= (Vout*D)/(2*Rout*0.005*Vout*fsw)
+Cout__new= (Vout*D)/(2*Rout*0.025*Vout*fsw)
 
 % cvout = (75e-06*(2*Rout*0.02*Vout*fsw))/D 
 
