@@ -26,9 +26,9 @@ Rout = Rboost/((Vmppt/Vout)^2 )
 D_cycle= 1- (sqrt(Rboost/Rout))
 D_prime = 1-D_cycle;
 
-Cout= 100e-06 ;
+Cout= 14e-06 ;
 L_ESR=1.38e-3;
-L = 220e-06;
+L = 150e-06;
 
 I_q =Imppt;
 
@@ -156,8 +156,8 @@ k= 0:0.0001:25;
 
 figure('Name','Root Locus For   For Gid + Total_delay_TF ')
  rlocus( Gid_TF_Total_delay,k)
- figure('Name','Bode For   For Gid + Total_delay_TF ')
- bode( Gid_TF_Total_delay)
+% figure('Name','Bode For   For Gid + Total_delay_TF ')
+% bode( Gid_TF_Total_delay)
 % 
 %figure('Name','Step For   For Gid + Total_delay_TF + Gc_id_TF ')
 %step(Gid_TF_Total_delay*Gc_id_TF ) 
