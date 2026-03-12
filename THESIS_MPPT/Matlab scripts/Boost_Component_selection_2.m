@@ -34,6 +34,8 @@ L__new= (Vmppt*D)/ (fsw*2*0.15*Imppt)
 
 Cin_min = 1/(8*fsw*Rboost) %These  miniminum values we can change them later to higer values 
 
+Cin_From_ripple_Approximation = D/(8*fsw^2*220e-6*0.01) %This is from Ripple Approximation 
+
 %%Cout_min = D/(n*fsw*Rout)
 
 Cout__new= (Vout*D)/(2*Rout*0.01*Vout*fsw)

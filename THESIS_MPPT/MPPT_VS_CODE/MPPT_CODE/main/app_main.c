@@ -170,6 +170,23 @@ void app_main()
 {
 
 
+
+
+    
+//Probablly to have a contollble Thing we can have a button that start a function that wakes up the MPPT and PI controller to start working together with timers aadn PWM CONFIG  but Later 
+create_semaphores_isr();  //Creating the Semaphores for the ISR to use
+
+//Here we create the tasks Initially so that when counter starts  and give  semaphore  The Task is already present and waiting  to be executed
+create_task_MPPT_loop_logic();// 
+create_task_PI_loop_logic();
+intialise_and_start_gptimer();  //Initialising the GPTimer and Starting it
+pwm_configuration();  //FOR FUTURE TEY BY ALL MEANS TO HANDLE THE CONFIGURATIONS WITH LOGS  HANCE GIVING US MORE INFORMATION 
+Initialise_and_measure_ADC();
+
+printf("Finished Initialisation of all the components and their respective tasks and timers \n");
+//These can later be controlled how they start or stop..
+//MPPT();   //Supposed to be Called as a Task//Startint the MPPT component  Set by rate of Mppt Frequency 
+//PI();    //Supposed to be called as a Task //Starting the PI controller component
  
 
     printf("Starting Switch Example by arnold \n");
@@ -307,20 +324,6 @@ printf("Finished Initialisation of Rain Maker and all of its subcomponents \n");
 
 
 
-//Probablly to have a contollble Thing we can have a button that start a function that wakes up the MPPT and PI controller to start working together with timers aadn PWM CONFIG  but Later 
-create_semaphores_isr();  //Creating the Semaphores for the ISR to use
-
-//Here we create the tasks Initially so that when counter starts  and give  semaphore  The Task is already present and waiting  to be executed
-create_task_MPPT_loop_logic();// 
-create_task_PI_loop_logic();
-intialise_and_start_gptimer();  //Initialising the GPTimer and Starting it
-//pwm_configuration();  //FOR FUTURE TEY BY ALL MEANS TO HANDLE THE CONFIGURATIONS WITH LOGS  HANCE GIVING US MORE INFORMATION 
-Initialise_and_measure_ADC();
-
-
-//These can later be controlled how they start or stop..
-//MPPT();   //Supposed to be Called as a Task//Startint the MPPT component  Set by rate of Mppt Frequency 
-//PI();    //Supposed to be called as a Task //Starting the PI controller component
 
 
 

@@ -7,6 +7,7 @@
 #include "MPPT.h"
 #include "PI_Controller.h"
 #include "Led.h"
+#include "pwm.h"
 
 
 
@@ -89,6 +90,9 @@ void task_to_Calculate_MPPT(void *pvParameters)
             printf("running MPPT loop logic\n");
 
             MPPT();                       // Run MPPT algorithm
+
+           duty_ratio_calculation();
+           pwm_frequency_calculation();
            // Update_Parameters(&mppt_params);  //  RainMaker cloud update  
 
             // Task automatically loops back and blocks on semaphore again

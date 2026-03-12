@@ -18,9 +18,9 @@ static const char *PWM_TAG = "PWM_COMPONENT";
 //Long period → low frequency, high resolution
 
     
-int Resolution_hz =  8000000;
-int Period_ticks = 50000 ;          //has to be below 65 535 //These also set the resolution we  will deal with 
-int Compare_value = 0;   //For setting the duty cyle of the first generator
+int Resolution_hz = 80000000 ;// 8000000;  c
+int Period_ticks = 1000 ;          //has to be below 65 535 //These also set the resolution we  will deal with 
+int Compare_value = 500;   //For setting the duty cyle of the first generator
 int Compare_value_2 = 0;  //For setting the duty cyle of the second generator
 float Duty_Ratio ; //= 0.0f;
 float Duty_Ratio_2; // = 0.0f;
@@ -222,11 +222,13 @@ mcpwm_generator_set_action_on_timer_event(ret_gen_2, timer_action_config);
 mcpwm_generator_set_action_on_compare_event(ret_gen_2,event_action_config_2 );
  
 
-//printf("done config pwm");
+printf("done config pwm");
 ESP_LOGI(PWM_TAG,"Finished PWM configuration");
 }
 
 
+
+//We can work on this later on  and maybe add  parameters to the function to change the duty cycle and frequency from other components and not just from this component
 void update_compare_value(void) {
 
     mcpwm_comparator_set_compare_value(ret_cmpr, Compare_value);  //For Changing the Duty Cycle Dynamically In another Components 

@@ -1,3 +1,3 @@
 idf_component_register(SRCS "tasks.c"
-                    REQUIRES isr MPPT PI_Controller Led
+                    REQUIRES isr MPPT PI_Controller Led pwm
                     INCLUDE_DIRS "include")
