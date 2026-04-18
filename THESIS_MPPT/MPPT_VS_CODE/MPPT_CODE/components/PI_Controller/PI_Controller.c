@@ -2,6 +2,9 @@
 #include "PI_Controller.h"
 #include "MPPT.h"
 #include "ADC.h"
+#include "pwm.h"
+#include "Led.h"
+
 //We might However change to Double 
 
 const double fs=25000.0; //In this case made Const because as scope level all valaues should  be constants 
@@ -30,11 +33,14 @@ double duty_control_signal = 0.0 ;
 static double Satuaration_block_state_2_input = 0.0;
  
 
-void PI(void)
+void run_PI_control(void)
 {
  
 
-Error = Iref - IL ; 
+//we are gonna wrap the PI logic to only  calculate duty cycle only when there is an active PPWM signal 
+
+if (control_pwm_signal != 0) {  //This means that pwm is running 
+Error = Iref - I_PV ; 
 
 printf("Errror is %0.2f \n", Error);
 
@@ -53,6 +59,8 @@ Ki_contribution = (Error_Prev)*ki*Ts + Ki_contribution_prev ;  //Always remember
 
 PI_Controller_Output = Kp_contribution + Ki_contribution ;
 
+PI_Controller_Output =0.5 ;
+
  // INCLUDE SATURAION BLOCK 
  
  if(PI_Controller_Output <  Lower_saturation_Limit) 
@@ -70,13 +78,38 @@ else { PI_Controller_Output_Saturation_Block = PI_Controller_Output; }
 
  duty_control_signal =  PI_Controller_Output_Saturation_Block ;
   
-   
+
+
+if (control_mode == CONTROL_MODE_AUTOMATIC) {
+        Compare_value = (uint32_t)(duty_control_signal * Period_ticks);
+        update_compare_value(Compare_value);
+  }
+
  Satuaration_block_state_2_input  =  (PI_Controller_Output  - PI_Controller_Output_Saturation_Block)* 1/kp ;
 
 Error_Prev  = Error;
 Ki_contribution_prev = Ki_contribution;
 
 
-printf("Duty cycle control signal is %0.2f \n", duty_control_signal );
+printf("Duty cycle control signal is my %0.2f \n", duty_control_signal );
 
+}
+
+if (control_pwm_signal == 0) {
+
+    duty_control_signal = 0.0;  //If there is no PWM signal then we set the duty cycle to zero and we dont run the PI logic at all
+	Error = 0.0;
+    Error_Prev = 0.0;
+    Kp_contribution = 0.0;
+    Ki_contribution = 0.0;
+    Ki_contribution_prev = 0.0;
+    PI_Controller_Output = 0.0;
+    PI_Controller_Output_Saturation_Block = 0.0;
+    Satuaration_block_state_2_input = 0.0;
+    duty_control_signal = 0.0;
+    Compare_value = 0 ; 
+    update_compare_value(Compare_value);
+	//printf("set DC=0.0 \n");
+	//printf("Duty cycle control signal is ....part in Pi controller %0.2f \n", duty_control_signal );
+}
 }

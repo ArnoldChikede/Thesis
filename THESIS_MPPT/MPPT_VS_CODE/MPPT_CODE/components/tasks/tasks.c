@@ -1,13 +1,17 @@
 #include <stdio.h>
 #include "tasks.h"
+#include "Run_PI_Controller.h"
 #include "isr.h"
 #include "freertos/idf_additions.h"
 
-#include "tasks.h"
+
+
 #include "MPPT.h"
-#include "PI_Controller.h"
 #include "Led.h"
 #include "pwm.h"
+#include "Protection_Features.h"
+#include "ADC.h"
+#include "freertos/semphr.h"
 
 
 
@@ -16,12 +20,7 @@
 
 static TaskHandle_t xHandle_to_MPPT= NULL;
 static TaskHandle_t xHandle_to_PI= NULL;
-
-
-
-
-
-
+static TaskHandle_t xHandle_to_LOG = NULL;
 
 
 
@@ -82,18 +81,33 @@ void task_to_Calculate_MPPT(void *pvParameters)
     }
 
     // Main loop: task stays alive forever
+    printf(" Entering loop for running MPPT loop logic\n");
+    pwm_frequency_calculation();
+    
     while (1)
     {
         // Wait for the semaphore (blocks task, frees CPU)
+        //printf("MPPT waiting...\n");
         if (xSemaphoreTake(xSemaphore_control_MPPT_loop_logic, portMAX_DELAY) == pdTRUE)
         {
-            printf("running MPPT loop logic\n");
+           // printf("running MPPT loop logic\n");
+
+
+               if (Protection_FaultActive()) {
+                continue;
+                }
+
+                  if (control_mode != CONTROL_MODE_AUTOMATIC) {
+                   continue;
+             }
+
 
             MPPT();                       // Run MPPT algorithm
 
-           duty_ratio_calculation();
-           pwm_frequency_calculation();
-           // Update_Parameters(&mppt_params);  //  RainMaker cloud update  
+           //duty_ratio_calculation();
+           //pwm_frequency_calculation();
+          // Update_Parameters(&mppt_params);  //  RainMaker cloud update  ...WE CAN RATHER Have  this as a separate tasks with a separate time and semaphore structure coz when we start running this at the speed of teh mppt then its gonna be so fast
+                                          // that we will deplet the MQTT budget that we have from the rainmaker  cloud . 
 
             // Task automatically loops back and blocks on semaphore again
             // NO task deletion or recreation needed
@@ -183,14 +197,29 @@ void task_to_Calculate_PI(void *pvParameters)
     }
 
     // Main loop: task stays alive forever
+      printf(" Entering loop for running PI loop logic\n");
     while (1)
     {
         // Wait for the semaphore (blocks task, frees CPU)
         if (xSemaphoreTake(xSemaphore_control_PI_loop_logic, portMAX_DELAY) == pdTRUE)
         {
-            printf("running PI loop logic\n");
+           // printf("running PI loop logic\n");
+           Protection_Check(V_BOOST , I_PV); // Check for faults before running PI control loop
 
-            PI();  // Run PI control loop
+
+
+            if (Protection_FaultActive()) {
+             continue;
+                 }
+
+
+
+             if (control_mode != CONTROL_MODE_AUTOMATIC) {
+                       continue;
+                }
+
+
+            PI_control();  // Run PI control loop
 
             // Optional: if you want, you can rate-limit or conditionally update cloud params here
             // e.g., only if duty cycle changed significantly
@@ -201,6 +230,28 @@ void task_to_Calculate_PI(void *pvParameters)
     }
 }
 
+
+
+
+void task_to_Log_System_State(void *pvParameters)
+{
+    if (xSemaphore_control_LOG_loop == NULL)
+    {
+        printf("xSemaphore_control_LOG_loop creation failure\n");
+        vTaskDelete(NULL);
+        return;
+    }
+
+    while (1)
+    {
+        if (xSemaphoreTake(xSemaphore_control_LOG_loop, portMAX_DELAY) == pdTRUE)
+        {
+            printf("LOG | V_PV=%.3f V | V_BOOST=%.3f V | I_PV=%.3f A\n",
+                   V_PV, V_BOOST, I_PV);
+            //pwm_frequency_calculation();
+        }
+    }
+}
 
 
 
@@ -223,11 +274,11 @@ void task_to_Calculate_PI(void *pvParameters)
 void create_task_MPPT_loop_logic( void )
 {   
 static uint8_t ucParameterToPass;
-  xTaskCreatePinnedToCore( task_to_Calculate_MPPT, "PERIOD_TICKS_DOWN TASK",2048, &ucParameterToPass, tskIDLE_PRIORITY, &xHandle_to_MPPT, 1);   //8192 STACK SIZE IN WORDS 1 W= 4 BYTTES 2048
+  xTaskCreatePinnedToCore( task_to_Calculate_MPPT, "PERIOD_TICKS_DOWN TASK",2048, &ucParameterToPass, tskIDLE_PRIORITY+2  , &xHandle_to_MPPT, 1);   //8192 STACK SIZE IN WORDS 1 W= 4 BYTTES 2048
   configASSERT( xHandle_to_MPPT );  
 if (xHandle_to_MPPT != NULL) 
 {
-   // printf("Task handle creation  for MPPT_Loop_Logic succeeded!\n");
+    printf("Task handle creation  for MPPT_Loop_Logic succeeded!\n");
            
 }
 
@@ -242,7 +293,7 @@ else if ((xHandle_to_MPPT == NULL) ){
 void create_task_PI_loop_logic( void )
 {   
 static uint8_t ucParameterToPass;
-  xTaskCreatePinnedToCore( task_to_Calculate_PI, "PI TASK",2048, &ucParameterToPass, tskIDLE_PRIORITY, &xHandle_to_PI, 1);   //8192 STACK SIZE IN WORDS 1 W= 4 BYTTES 2048
+  xTaskCreatePinnedToCore( task_to_Calculate_PI, "PI TASK",2048, &ucParameterToPass, tskIDLE_PRIORITY+2 , &xHandle_to_PI, 1);   //8192 STACK SIZE IN WORDS 1 W= 4 BYTTES 2048
   configASSERT( xHandle_to_PI );  
 if (xHandle_to_PI != NULL) 
 {
@@ -255,3 +306,23 @@ else if ((xHandle_to_PI == NULL) ){
 }
 
 }   
+
+
+void create_task_LOG_loop(void)
+{
+    static uint8_t ucParameterToPass;
+    xTaskCreatePinnedToCore(task_to_Log_System_State,
+                            "LOG TASK",
+                            4096,
+                            &ucParameterToPass,
+                            tskIDLE_PRIORITY + 1,
+                            &xHandle_to_LOG,
+                            1);
+
+    configASSERT(xHandle_to_LOG);
+
+    if (xHandle_to_LOG != NULL)
+    {
+        printf("Task handle creation for LOG_TASK succeeded!\n");
+    }
+}

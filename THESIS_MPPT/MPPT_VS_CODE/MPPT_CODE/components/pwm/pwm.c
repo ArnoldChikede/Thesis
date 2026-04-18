@@ -10,6 +10,10 @@
 #include "driver/mcpwm_gen.h"
 
 
+
+#define HOLD_ON true
+
+
 static const char *PWM_TAG = "PWM_COMPONENT";
 //extern int period_ticks_step;
 //extern int resolution_step;
@@ -19,12 +23,13 @@ static const char *PWM_TAG = "PWM_COMPONENT";
 
     
 int Resolution_hz = 80000000 ;// 8000000;  c
-int Period_ticks = 1000 ;          //has to be below 65 535 //These also set the resolution we  will deal with 
-int Compare_value = 500;   //For setting the duty cyle of the first generator
+int Period_ticks = 4000 ;          //has to be below 65 535 //These also set the resolution we  will deal with 
+int Compare_value = 0;   //For setting the duty cyle of the first generator
 int Compare_value_2 = 0;  //For setting the duty cyle of the second generator
 float Duty_Ratio ; //= 0.0f;
 float Duty_Ratio_2; // = 0.0f;
 int PWM_Frequency;   //in Hz
+int control_pwm_signal=0; 
 
 //mcpwm_cmpr_handle_t ret_cmpr=NULL;
 
@@ -37,8 +42,12 @@ int PWM_Frequency;   //in Hz
 //}
 
 
- mcpwm_cmpr_handle_t ret_cmpr=NULL;
+mcpwm_cmpr_handle_t ret_cmpr=NULL;
 mcpwm_cmpr_handle_t ret_cmpr_2=NULL;
+
+mcpwm_gen_handle_t ret_gen=NULL;
+mcpwm_gen_handle_t ret_gen_2=NULL;
+
 
 
 void duty_ratio_calculation(void){
@@ -83,7 +92,7 @@ mcpwm_timer_config_t timer_config = {
 .clk_src = MCPWM_TIMER_CLK_SRC_DEFAULT,                       // MCPWM_TIMER_CLK_SRC_PLL160M
 
 .resolution_hz= Resolution_hz,               // Change later to a variableyou can change anywhere                      //BASICALLY SETTING HOWM MANY TIMER TICKS HAPPEN IN A SECOND  1000000
-.count_mode= MCPWM_TIMER_COUNT_MODE_UP,
+.count_mode= MCPWM_TIMER_COUNT_MODE_UP_DOWN,  //UP, DOWN, UP_DOWN
 .period_ticks=Period_ticks // 1000,                                      //this sets the  length of each period
 
 };
@@ -211,16 +220,15 @@ mcpwm_gen_timer_event_action_t  timer_action_config={
 
 
 
-mcpwm_gen_handle_t ret_gen=NULL;
-mcpwm_gen_handle_t ret_gen_2=NULL;
+
 
 mcpwm_new_generator(ret_oper, &generator_config, &ret_gen);
 mcpwm_new_generator(ret_oper, &generator_config_2, &ret_gen_2);      
 mcpwm_generator_set_action_on_timer_event(ret_gen, timer_action_config);
 mcpwm_generator_set_action_on_timer_event(ret_gen_2, timer_action_config);
- mcpwm_generator_set_action_on_compare_event(ret_gen,event_action_config );
+mcpwm_generator_set_action_on_compare_event(ret_gen,event_action_config );
 mcpwm_generator_set_action_on_compare_event(ret_gen_2,event_action_config_2 );
- 
+power_on_off_pwm(0) ; //Forcing the PWM to never start until we receive the command from the app to start it by setting the force level to 0 which means forcing the generator output to be always LOW until we receive the command to start it by setting the force level to -1 which means removing any force level and let the generator operate normally according to the timer and comparator events
 
 printf("done config pwm");
 ESP_LOGI(PWM_TAG,"Finished PWM configuration");
@@ -229,9 +237,28 @@ ESP_LOGI(PWM_TAG,"Finished PWM configuration");
 
 
 //We can work on this later on  and maybe add  parameters to the function to change the duty cycle and frequency from other components and not just from this component
-void update_compare_value(void) {
+void update_compare_value(int Compare_Value){
 
     mcpwm_comparator_set_compare_value(ret_cmpr, Compare_value);  //For Changing the Duty Cycle Dynamically In another Components 
     mcpwm_comparator_set_compare_value(ret_cmpr_2, Compare_value_2);
 
 }
+
+
+void power_on_off_pwm(int force_level) {
+
+if (force_level == -1) {  //-1 means to remove the force level and let the generator operate normally according to the timer and comparator events
+    printf("Powering ON the PWM signal by forcing the generator output to HIGH level\n");
+     mcpwm_generator_set_force_level(ret_gen, force_level, HOLD_ON ); //If the hold_on is true, the force level will retain forever, until user removes the force level by setting the force level to -1.
+    }
+
+ if (force_level == 0) {
+    printf("Powering OFF the PWM signal by forcing the generator output to LOW level\n");
+     mcpwm_generator_set_force_level(ret_gen, force_level, HOLD_ON ); //If the hold_on is true, the force level will retain forever, until user removes the force level by setting the force level to -1.
+    }
+
+}
+
+
+
+

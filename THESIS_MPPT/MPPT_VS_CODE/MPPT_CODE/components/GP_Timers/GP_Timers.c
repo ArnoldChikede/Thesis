@@ -6,7 +6,7 @@
 #include "esp_log.h"
 #include "GP_Timers.h"
 #include "isr.h"
-
+#include "freertos/semphr.h"
 
 //GP_Timer for MPPT
 gptimer_handle_t gptimer = NULL;
@@ -29,16 +29,27 @@ gptimer_config_t timer_config_PI = {
 
 
 
+// GP_Timer for LOGGING
+gptimer_handle_t gptimer_LOG = NULL;
+gptimer_config_t timer_config_LOG = {
+    .clk_src = GPTIMER_CLK_SRC_DEFAULT,
+    .direction = GPTIMER_COUNT_UP,
+    .resolution_hz = 1 * 1000 * 1000,
+};
+
+
+
 
 
 
 
 //Here we have the callback function for the MPPT loop logic, which will be called when the timer alarm event occurs. In this example, we simply give a semaphore to unblock the MPPT loop task, but in a real application, you can perform more complex operations here.
-static bool example_timer_on_alarm_cb_MPPT(gptimer_handle_t timer, const gptimer_alarm_event_data_t *edata, void *user_ctx)
+//static bool example_timer_on_alarm_cb_MPPT(gptimer_handle_t timer, const gptimer_alarm_event_data_t *edata, void *user_ctx)
 
-{
+//{
 
-     xSemaphoreGive( xSemaphore_control_MPPT_loop_logic);
+     //xSemaphoreGive( xSemaphore_control_MPPT_loop_logic);
+     //printf("gave semaphore for MPPT\n"); bad idea 
     // General process for handling event callbacks:
 
     // 1. Retrieve user context data from user_ctx (passed in from gptimer_register_event_callbacks)
@@ -49,8 +60,22 @@ static bool example_timer_on_alarm_cb_MPPT(gptimer_handle_t timer, const gptimer
 
     // 4. Return whether a high-priority task was awakened during the above operations to notify the scheduler to switch tasks
 
-    return false;
+    //return false;
 
+//}
+
+
+static bool example_timer_on_alarm_cb_MPPT(gptimer_handle_t timer,
+                                           const gptimer_alarm_event_data_t *edata,
+                                           void *user_ctx)
+{
+    BaseType_t high_task_wakeup = pdFALSE;
+
+    if (xSemaphore_control_MPPT_loop_logic != NULL) {
+        xSemaphoreGiveFromISR(xSemaphore_control_MPPT_loop_logic, &high_task_wakeup);
+    }
+
+    return (high_task_wakeup == pdTRUE);
 }
 
 
@@ -58,17 +83,46 @@ static bool example_timer_on_alarm_cb_MPPT(gptimer_handle_t timer, const gptimer
 
 
 //Here we have the callback function for the PI loop logic, which will be called when the timer alarm event occurs.
-static bool example_timer_on_alarm_cb_PI(gptimer_handle_t timer, const gptimer_alarm_event_data_t *edata, void *user_ctx)
+//static bool example_timer_on_alarm_cb_PI(gptimer_handle_t timer, const gptimer_alarm_event_data_t *edata, void *user_ctx)
 
-{
+//{
 
-     xSemaphoreGive( xSemaphore_control_PI_loop_logic);
+   //  xSemaphoreGive( xSemaphore_control_PI_loop_logic);
     // General process for handling event callbacks:
 
     
 
-    return false;
+    //return false;
 
+//}
+
+
+static bool example_timer_on_alarm_cb_PI(gptimer_handle_t timer,
+                                         const gptimer_alarm_event_data_t *edata,
+                                         void *user_ctx)
+{
+    BaseType_t high_task_wakeup = pdFALSE;
+
+    if (xSemaphore_control_PI_loop_logic != NULL) {
+        xSemaphoreGiveFromISR(xSemaphore_control_PI_loop_logic, &high_task_wakeup);
+    }
+
+    return (high_task_wakeup == pdTRUE);
+}
+
+
+
+static bool example_timer_on_alarm_cb_LOG(gptimer_handle_t timer,
+                                          const gptimer_alarm_event_data_t *edata,
+                                          void *user_ctx)
+{
+    BaseType_t high_task_wakeup = pdFALSE;
+
+    if (xSemaphore_control_LOG_loop != NULL) {
+        xSemaphoreGiveFromISR(xSemaphore_control_LOG_loop, &high_task_wakeup);
+    }
+
+    return (high_task_wakeup == pdTRUE);
 }
 
 
@@ -79,7 +133,7 @@ gptimer_alarm_config_t alarm_config = {
 
     .reload_count = 0,      // When the alarm event occurs, the timer will automatically reload to 0
 
-    .alarm_count = 1000000, // Set the actual alarm period, since the resolution is 1us, 1000000 represents 1s
+    .alarm_count = 500, // Set the actual alarm period, since the resolution is 1us, 1000000 represents 1s
 
 //period_seconds = alarm_count / resolution_hz
 
@@ -93,13 +147,22 @@ gptimer_alarm_config_t alarm_config_PI = {
 
     .reload_count = 0,      // When the alarm event occurs, the timer will automatically reload to 0
 
-    .alarm_count = 1000000, // Set the actual alarm period, since the resolution is 1us, 1000000 represents 1s
+    .alarm_count = 1000, // Set the actual alarm period, since the resolution is 1us, 1000000 represents 1s
 
 //period_seconds = alarm_count / resolution_hz
 
     .flags.auto_reload_on_alarm = true, // Enable auto-reload function
 
 };
+
+
+gptimer_alarm_config_t alarm_config_LOG = {
+    .reload_count = 0,
+    .alarm_count = 1000000,   // 1s, change if you want
+    .flags.auto_reload_on_alarm = true,
+};
+
+
 
 
 
@@ -124,6 +187,11 @@ gptimer_event_callbacks_t cb_PI = {
 };
 
 
+gptimer_event_callbacks_t cb_LOG = {
+    .on_alarm = example_timer_on_alarm_cb_LOG,
+};
+
+
 
 
 
@@ -136,21 +204,26 @@ void intialise_and_start_gptimer(void)
     // Create a timer instance
     ESP_ERROR_CHECK(gptimer_new_timer(&timer_config, &gptimer));
      ESP_ERROR_CHECK(gptimer_new_timer(&timer_config_PI, &gptimer_PI));
+     ESP_ERROR_CHECK(gptimer_new_timer(&timer_config_LOG, &gptimer_LOG));
 
     // Set the timer's alarm action
     ESP_ERROR_CHECK(gptimer_set_alarm_action(gptimer, &alarm_config));
     ESP_ERROR_CHECK(gptimer_set_alarm_action(gptimer_PI, &alarm_config_PI));
+    ESP_ERROR_CHECK(gptimer_set_alarm_action(gptimer_LOG, &alarm_config_LOG));
 
     // Register timer event callback functions, allowing user context to be carried
     ESP_ERROR_CHECK(gptimer_register_event_callbacks(gptimer, &cb_MPPTs, NULL));
     ESP_ERROR_CHECK(gptimer_register_event_callbacks(gptimer_PI, &cb_PI, NULL));
+    ESP_ERROR_CHECK(gptimer_register_event_callbacks(gptimer_LOG, &cb_LOG, NULL));
 
 
     // Enable the timer
     ESP_ERROR_CHECK(gptimer_enable(gptimer));
     ESP_ERROR_CHECK(gptimer_enable(gptimer_PI));
+    ESP_ERROR_CHECK(gptimer_enable(gptimer_LOG));
 
     // Start the timer
     ESP_ERROR_CHECK(gptimer_start(gptimer));
     ESP_ERROR_CHECK(gptimer_start(gptimer_PI));
+    ESP_ERROR_CHECK(gptimer_start(gptimer_LOG));
 }

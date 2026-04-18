@@ -160,7 +160,7 @@ esp_err_t app_wifi_internal_start(const char *pop, const char *service_name,
          *          using X25519 key exchange and proof of possession (pop) and AES-CTR
          *          for encryption/decryption of messages.
          */
-        network_prov_security_t security = NETWORK_PROV_SECURITY_2;
+        network_prov_security_t security = NETWORK_PROV_SECURITY_1;
 
 #ifdef CONFIG_APP_NETWORK_PROV_TRANSPORT_BLE
         /* This step is only useful when scheme is wifi_prov_scheme_ble. This will

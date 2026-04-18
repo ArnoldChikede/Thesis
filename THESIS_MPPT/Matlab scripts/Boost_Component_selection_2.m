@@ -27,14 +27,14 @@ Vout = Vmppt/(1-D)
 
 L__new= (Vmppt*D)/ (fsw*2*0.15*Imppt)
 
-%IL_ripple_p_p =  (Vmppt*D)/(fsw*Lmin) 
+%%IL_ripple_p_p =  (Vmppt*D)/(fsw*Lmin) 
 
 %Isw_max = Imppt + (IL_ripple_p_p/2)
 
 
-Cin_min = 1/(8*fsw*Rboost) %These  miniminum values we can change them later to higer values 
+%%Cin_min = 1/(8*fsw*Rboost) %These  miniminum values we can change them later to higer values 
 
-Cin_From_ripple_Approximation = D/(8*fsw^2*220e-6*0.01) %This is from Ripple Approximation 
+%%Cin_From_ripple_Approximation = D/(8*fsw^2*220e-6*0.01) %This is from Ripple Approximation 
 
 %%Cout_min = D/(n*fsw*Rout)
 

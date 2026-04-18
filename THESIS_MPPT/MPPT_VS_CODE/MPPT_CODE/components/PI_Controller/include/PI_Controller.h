@@ -3,5 +3,5 @@
 extern double duty_control_signal ;
 
 
-void PI(void);
+void run_PI_control(void);
 

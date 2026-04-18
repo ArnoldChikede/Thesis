@@ -2,6 +2,10 @@
 #include <math.h>
 #include "MPPT.h"
 #include "ADC.h"
+#include "pwm.h"
+
+#define  DELTA_I_REF 0.01
+
 
  //double V_PV ;   //SHOULD COME FROM THE ADC COMPONENT
 // double I_PV ;  //SHOULD COME FROM THE ADC COMPONENT
@@ -9,7 +13,7 @@
 
 double MPPT_Ts; //Remeber this is supposed to be set as a Value From How the Task is going to run in FreeRTOS
                 //And we Kind of not use it here 
-double delta_Iref = 0.01 ; //0.02;
+double delta_Iref = DELTA_I_REF ; //0.02; 
  double Iref = 2.0;
 static double P_PV_PREV = 0.0 ;
 static double V_PV_PREV = 0.0 ;
@@ -23,9 +27,12 @@ double IREF_MAX = 20;
 
 
 
-
+/* COMMENTING OUT MPPT LOGIC TO HAVE  FIXED IREF
 void  MPPT(void)
 {
+
+if (control_pwm_signal != 0) {
+
 
 P_PV = I_PV * V_PV;
 
@@ -87,4 +94,33 @@ else if (fabs(delta_P) > 0.04 ){delta_Iref = 0.004 ; }
 
 else {delta_Iref = 0.0005 ; }
    
+
+    }
+
+
+
+if (control_pwm_signal == 0) {
+
+    //printf("MPPT LOGIC NOT PRODUCIN IREF \n");
+    //Iref = 0.0;  //If there is no PWM signal then we set the reference current to zero and we dont run the MPPT logic at all
+   // P_PV_PREV = 0.0 ;
+   // V_PV_PREV = 0.0 ;
+   // delta_P = 0.0;
+   // delta_V = 0.0;
+   // delta_Iref = 0.01 ; //Resetting the step to its initial value for the next time we start the MPPT algorithm
+	//printf("MPPT LOGIC NOT PRODUCIN IREF \n");
+}
+
+
+
+
+
+} */
+
+
+
+void  MPPT(void) {
+
+Iref = 2.0 ;
+
 }

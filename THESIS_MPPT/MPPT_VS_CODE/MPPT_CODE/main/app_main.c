@@ -36,10 +36,12 @@
 #include "pwm.h"
 #include "ADC.h"
 #include "MPPT.h"
-#include "PI_Controller.h"
+#include "Run_PI_Controller.h"
 #include "GP_Timers.h"
 #include "isr.h"
 #include "tasks.h"
+#include "Protection_Features.h"
+#include "Status_leds.h"
 
 
 
@@ -109,9 +111,11 @@ static void event_handler(void* arg, esp_event_base_t event_base,
                 break;
             case RMAKER_MQTT_EVENT_CONNECTED:
                 ESP_LOGI(TAG, "MQTT Connected.");
+                status_leds_set_wifi_connected(true);
                 break;
             case RMAKER_MQTT_EVENT_DISCONNECTED:
                 ESP_LOGI(TAG, "MQTT Disconnected.");
+                status_leds_set_wifi_connected(false);
                 break;
             case RMAKER_MQTT_EVENT_PUBLISHED:
                 ESP_LOGI(TAG, "MQTT Published. Msg id: %d.", *((int *)event_data));
@@ -170,25 +174,6 @@ void app_main()
 {
 
 
-
-
-    
-//Probablly to have a contollble Thing we can have a button that start a function that wakes up the MPPT and PI controller to start working together with timers aadn PWM CONFIG  but Later 
-create_semaphores_isr();  //Creating the Semaphores for the ISR to use
-
-//Here we create the tasks Initially so that when counter starts  and give  semaphore  The Task is already present and waiting  to be executed
-create_task_MPPT_loop_logic();// 
-create_task_PI_loop_logic();
-intialise_and_start_gptimer();  //Initialising the GPTimer and Starting it
-pwm_configuration();  //FOR FUTURE TEY BY ALL MEANS TO HANDLE THE CONFIGURATIONS WITH LOGS  HANCE GIVING US MORE INFORMATION 
-Initialise_and_measure_ADC();
-
-printf("Finished Initialisation of all the components and their respective tasks and timers \n");
-//These can later be controlled how they start or stop..
-//MPPT();   //Supposed to be Called as a Task//Startint the MPPT component  Set by rate of Mppt Frequency 
-//PI();    //Supposed to be called as a Task //Starting the PI controller component
- 
-
     printf("Starting Switch Example by arnold \n");
     /* Initialize Application specific hardware drivers and
      * set initial state.
@@ -196,6 +181,8 @@ printf("Finished Initialisation of all the components and their respective tasks
     esp_rmaker_console_init();
     app_driver_init();
     app_driver_set_state(DEFAULT_POWER);
+
+    status_leds_init();  //initialising LEDS
 
     /* Initialize NVS. */
     esp_err_t err = nvs_flash_init();
@@ -253,9 +240,12 @@ printf("Finished Initialisation of all the components and their respective tasks
     /* Add the standard power parameter (type: esp.param.power), which adds a boolean param
      * with a toggle switch ui-type.
      */
-    esp_rmaker_param_t *power_param = esp_rmaker_power_param_create(ESP_RMAKER_DEF_POWER_NAME, DEFAULT_POWER);
+    esp_rmaker_param_t *power_param = esp_rmaker_power_param_create(ESP_RMAKER_DEF_POWER_NAME, DEFAULT_POWER); //DEFAULT_POWWR is false in the .h file 
     esp_rmaker_device_add_param(switch_device, power_param);
    //  esp_rmaker_device_add_param(light_device, power_param);
+
+
+    
 
 
      //Add  another parameeter to control brightness
@@ -319,11 +309,46 @@ printf("Finished Initialisation of all the components and their respective tasks
     }
 
 
+//vTaskDelay(pdMS_TO_TICKS(3000));   // or 5000
 printf("Finished Initialisation of Rain Maker and all of its subcomponents \n");
 //After Intitialisation of the Rain Maker and all of its subcomponents we can now start Initialising  other Components in my Project 
 
 
 
+ protection_config_t my_protection_config = {
+        .overvoltage_limit = 65.0f,
+        .overcurrent_limit = 5.0f,
+        .voltage_recovery_limit = 60.0f,
+        .current_recovery_limit = 4.8f,
+        .latch_fault = false     //Remember that the latch option lets you choose between the two settings, 1. either manual reset or  2. automatic reset when the values return to normal
+    };
+
+    
+//Here we initialise the Protection circuitry for now 
+Protection_Init(&my_protection_config);
+//Probablly to have a contollble Thing we can have a button that start a function that wakes up the MPPT and PI controller to start working together with timers aadn PWM CONFIG  but Later 
+
+
+//Here we create the tasks Initially so that when counter starts  and give  semaphore  The Task is already present and waiting  to be executed
+pwm_configuration();  //FOR FUTURE TEY BY ALL MEANS TO HANDLE THE CONFIGURATIONS WITH LOGS  HANCE GIVING US MORE INFORMATION 
+create_semaphores_isr();  //Creating the Semaphores for the ISR to use
+intialise_and_start_gptimer();  //Initialising the GPTimer and Starting it
+create_task_MPPT_loop_logic();// 
+create_task_PI_loop_logic();
+create_task_LOG_loop();
+
+Initialise_and_measure_ADC();
+
+status_leds_set_power_ok(true);
+
+
+printf("Finished Initialisation of all the components and their respective tasks and timers \n");
+
+
+//These can later be controlled how they start or stop..
+//MPPT();   //Supposed to be Called as a Task//Startint the MPPT component  Set by rate of Mppt Frequency 
+//PI();    //Supposed to be called as a Task //Starting the PI controller component
+ 
 
 
 

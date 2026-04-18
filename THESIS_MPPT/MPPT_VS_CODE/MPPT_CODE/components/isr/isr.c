@@ -1,3 +1,5 @@
+// THE NAME IS ISR BUT ITS FOR SEMAPHORES REALLY JUST FEELING LAZY TO CHANGE THE NAME NOW AND TRACE EVERYWHERE IN THE CODE WHERE IT IS MENTIONED 
+
 #include <stdio.h>
 #include "isr.h"
 
@@ -14,6 +16,7 @@
 
 SemaphoreHandle_t xSemaphore_control_MPPT_loop_logic = NULL;  //declaring semaphore handle =NULL so its at a defined state
 SemaphoreHandle_t xSemaphore_control_PI_loop_logic = NULL;  //declaring semaphore handle =NULL so its at a defined state
+SemaphoreHandle_t xSemaphore_control_LOG_loop;
 
 
 
@@ -50,6 +53,17 @@ if( (xSemaphore_control_PI_loop_logic != NULL)  )
             printf("xSemaphore(s) PI creation failure\n");
         }
 
+
+
+
+xSemaphore_control_LOG_loop = xSemaphoreCreateBinary();
+if (xSemaphore_control_LOG_loop != NULL) {
+    printf("xSemaphore(s) LOG successfully\n");
+}
+ else
+        {
+            printf("xSemaphore(s) LOG creation failure\n");
+        }
 
 
 

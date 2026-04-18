@@ -559,12 +559,17 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/Status_leds/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PWM/cmake_install.cmake")
+  include("C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/pwm/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
@@ -684,7 +689,12 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PI_Controller/cmake_install.cmake")
+  include("C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/Run_PI_Controller/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/Protection_Features/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
@@ -710,5 +720,10 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
   include("C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/main/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PI_Controller/cmake_install.cmake")
 endif()
 

@@ -8,6 +8,7 @@
 
 extern SemaphoreHandle_t xSemaphore_control_MPPT_loop_logic;
 extern SemaphoreHandle_t xSemaphore_control_PI_loop_logic;
+extern SemaphoreHandle_t xSemaphore_control_LOG_loop;
 
 
 void create_semaphores_isr(void);
