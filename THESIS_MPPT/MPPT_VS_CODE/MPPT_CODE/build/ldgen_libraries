@@ -163,7 +163,10 @@ C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/json/libjson.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/Status_leds/libStatus_leds.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/libADC.a
+C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/isr/libisr.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/pwm/libpwm.a
+C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/libADC.a
+C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/isr/libisr.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/espressif__rmaker_common/libespressif__rmaker_common.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/mqtt/libmqtt.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/espressif__json_parser/libespressif__json_parser.a
@@ -203,7 +206,6 @@ C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/espressif__esp_insights/libespressif__esp_insights.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/espressif__esp_rainmaker/libespressif__esp_rainmaker.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/MPPT/libMPPT.a
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC/libADC.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/pwm/libpwm.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/Run_PI_Controller/libRun_PI_Controller.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/MPPT/libMPPT.a
@@ -215,14 +217,13 @@ C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/espressif__led_indicator/libespressif__led_indicator.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/espressif__rmaker_app_reset/libespressif__rmaker_app_reset.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/GP_Timers/libGP_Timers.a
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/isr/libisr.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/tasks/libtasks.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/Run_PI_Controller/libRun_PI_Controller.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/Protection_Features/libProtection_Features.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/Protection_Features/libProtection_Features.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/Led/libLed.a
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/isr/libisr.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/GP_Timers/libGP_Timers.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/tasks/libtasks.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/main/libmain.a
+C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC_Oneshot/libADC_Oneshot.a
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PI_Controller/libPI_Controller.a

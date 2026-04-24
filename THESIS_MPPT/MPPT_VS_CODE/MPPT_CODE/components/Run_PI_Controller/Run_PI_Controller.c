@@ -7,10 +7,10 @@
 
 //We might However change to Double 
 
-const double fs=25000.0; //In this case made Const because as scope level all valaues should  be constants 
+const double fs=80000.0; //In this case made Const because as scope level all valaues should  be constants 
 const double Ts=1.0/fs;
-double kp =0.05;
-double ki = 200;  
+double kp =0.1;
+double ki = 10.0;  
 
 //double Iref = 0.0;  //Would like to have type checling 						//So thats why i dont use Preprocessor Macros eg  #define
 //double IL= 0.0;
@@ -65,7 +65,7 @@ Ki_contribution = (Error_Prev)*ki*Ts + Ki_contribution_prev ;  //Always remember
 
 PI_Controller_Output = Kp_contribution + Ki_contribution ;
 
-PI_Controller_Output =0.5 ;
+//PI_Controller_Output =0.5 ;
  // INCLUDE SATURAION BLOCK 
  
  if(PI_Controller_Output <  Lower_saturation_Limit) 
@@ -122,7 +122,7 @@ if (control_pwm_signal == 0) {
 
 
 
-void PI_control_reset(void)
+void PI_control_reset(void) 
 {
     Error = 0.0;
     Error_Prev = 0.0;

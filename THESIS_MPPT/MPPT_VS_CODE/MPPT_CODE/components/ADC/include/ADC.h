@@ -1,15 +1,13 @@
-#pragma once
-
-
-//#define POT_POWER_PIN 12             //ADC 6
-//#define VOT_IN   32           //ADC 4
-
-//extern double IL;  
-extern volatile double V_PV ; 
-extern volatile double V_BOOST ; 
-extern volatile double I_PV;
-
-
-
+#ifndef ADC_H
+#define ADC_H
 
 void Initialise_and_measure_ADC(void);
+
+void ADC_MarkPwmPeriodBoundary(void);
+void ADC_MarkPwmPeriodBoundaryFromISR(void);
+
+extern volatile double V_PV;
+extern volatile double V_BOOST;
+extern volatile double I_PV;
+
+#endif

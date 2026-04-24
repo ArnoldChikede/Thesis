@@ -3,6 +3,7 @@
 #include "pwm.h"
 #include "Status_leds.h"
 #include "Led.h"
+#include "Run_PI_Controller.h"
 
 
 static protection_config_t protection_config_settings;
@@ -118,7 +119,8 @@ void Protection_Check(float output_voltage, float input_current)
         status_leds_set_fault(true);
         status_leds_set_mppt_active(false);
         PWM_Disable();
-        printf("FAULT: Overcurrent detected\n");
+        printf("FAULT: Overcurrent detected %f \n", input_current);
+        printf("FAULT: Duty Cycle is  %f \n", duty_control_signal);
         return;
     }
 }

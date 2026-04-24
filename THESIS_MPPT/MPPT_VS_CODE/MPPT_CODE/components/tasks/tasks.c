@@ -11,7 +11,10 @@
 #include "pwm.h"
 #include "Protection_Features.h"
 #include "ADC.h"
+
+//#include "ADC_Oneshot.h"
 #include "freertos/semphr.h"
+#include "esp_timer.h"
 
 
 
@@ -22,7 +25,7 @@ static TaskHandle_t xHandle_to_MPPT= NULL;
 static TaskHandle_t xHandle_to_PI= NULL;
 static TaskHandle_t xHandle_to_LOG = NULL;
 
-
+volatile uint32_t pi_loop_execution_count = 0;
 
 
 /*
@@ -203,7 +206,14 @@ void task_to_Calculate_PI(void *pvParameters)
         // Wait for the semaphore (blocks task, frees CPU)
         if (xSemaphoreTake(xSemaphore_control_PI_loop_logic, portMAX_DELAY) == pdTRUE)
         {
-           // printf("running PI loop logic\n");
+           
+       // if (ADC_ReadCurrentSample() != ESP_OK)
+//{
+   // continue;
+//}
+
+            pi_loop_execution_count++;
+            // printf("running PI loop logic\n");
            Protection_Check(V_BOOST , I_PV); // Check for faults before running PI control loop
 
 
@@ -242,13 +252,35 @@ void task_to_Log_System_State(void *pvParameters)
         return;
     }
 
+     static uint32_t last_trigger_count = 0;
+    static uint32_t last_pi_count = 0;
+
+
     while (1)
     {
         if (xSemaphoreTake(xSemaphore_control_LOG_loop, portMAX_DELAY) == pdTRUE)
         {
-            printf("LOG | V_PV=%.3f V | V_BOOST=%.3f V | I_PV=%.3f A\n",
+           printf("LOG | V_PV=%.3f V | V_BOOST=%.3f V | I_PV=%.3f A\n",
                    V_PV, V_BOOST, I_PV);
             //pwm_frequency_calculation();
+           //  printf("I = %f\n", I_PV);
+           printf("FAULT: Duty Cycle is  %f \n", duty_control_signal);
+
+         /*/uint32_t trigger_now = pwm_sample_trigger_count;
+            uint32_t pi_now = pi_loop_execution_count;
+
+            printf("I = %f | PWM trig/s = %lu | PI exec/s = %lu\n",
+                   I_PV,
+                   (unsigned long)(trigger_now - last_trigger_count),
+                   (unsigned long)(pi_now - last_pi_count));
+
+            last_trigger_count = trigger_now;
+            last_pi_count = pi_now;*/
+
+
+
+
+
         }
     }
 }
@@ -256,7 +288,38 @@ void task_to_Log_System_State(void *pvParameters)
 
 
 
+//void task_to_Test_ADC_Speed(void *pvParameters)
+//{
+  //  const int N = 5000;
+   // int64_t t0, t1;
 
+    //printf("Starting ADC speed test...\n");
+
+   // t0 = esp_timer_get_time();
+
+   // for (int i = 0; i < N; i++)
+    //{
+        //if (ADC_ReadCurrentSample() != ESP_OK)
+        //{
+          //  printf("ADC read failed at sample %d\n", i);
+         //   vTaskDelete(NULL);
+          //  return;
+       // }
+    //}
+
+  //  t1 = esp_timer_get_time();
+
+   // double total_us = (double)(t1 - t0);
+    //double avg_us = total_us / N;
+    //double rate_hz = 1000000.0 / avg_us;
+
+    //printf("ADC speed test done\n");
+    //printf("Total time: %.2f us\n", total_us);
+   // printf("Average per sample: %.3f us\n", avg_us);
+   // printf("Estimated sample rate: %.1f Hz\n", rate_hz);
+
+   // vTaskDelete(NULL);
+//}
 
 
 
@@ -291,7 +354,7 @@ else if ((xHandle_to_MPPT == NULL) ){
 
 
 void create_task_PI_loop_logic( void )
-{   
+{   //changestack to 4096
 static uint8_t ucParameterToPass;
   xTaskCreatePinnedToCore( task_to_Calculate_PI, "PI TASK",2048, &ucParameterToPass, tskIDLE_PRIORITY+2 , &xHandle_to_PI, 1);   //8192 STACK SIZE IN WORDS 1 W= 4 BYTTES 2048
   configASSERT( xHandle_to_PI );  
@@ -326,3 +389,15 @@ void create_task_LOG_loop(void)
         printf("Task handle creation for LOG_TASK succeeded!\n");
     }
 }
+
+
+//void create_task_ADC_speed_test(void)
+//{
+   // xTaskCreatePinnedToCore(task_to_Test_ADC_Speed,
+                      //      "ADC_SPEED_TEST",
+                      //      4096,
+                      //      NULL,
+                      //      tskIDLE_PRIORITY + 2,
+                 //           NULL,
+                 //           1);
+//}

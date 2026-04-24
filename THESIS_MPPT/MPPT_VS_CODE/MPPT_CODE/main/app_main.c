@@ -7,6 +7,8 @@
    CONDITIONS OF ANY KIND, either express or implied.
 */
 
+
+
 #include <string.h>
 #include <inttypes.h>
 #include <freertos/FreeRTOS.h>
@@ -42,6 +44,8 @@
 #include "tasks.h"
 #include "Protection_Features.h"
 #include "Status_leds.h"
+
+//#include "ADC_Oneshot.h"
 
 
 
@@ -169,6 +173,20 @@ static void event_handler(void* arg, esp_event_base_t event_base,
         ESP_LOGW(TAG, "Invalid event received!");
     }
 }
+
+
+static void adc_task_entry(void *pvParameters)
+{
+    (void)pvParameters;
+    Initialise_and_measure_ADC();   // this never returns
+   //ADC_CurrentOneshot_Init();
+ //  create_task_ADC_speed_test();
+    vTaskDelete(NULL);
+}
+
+
+
+
 
 void app_main()
 {
@@ -317,9 +335,9 @@ printf("Finished Initialisation of Rain Maker and all of its subcomponents \n");
 
  protection_config_t my_protection_config = {
         .overvoltage_limit = 65.0f,
-        .overcurrent_limit = 5.0f,
+        .overcurrent_limit = 10.0f,
         .voltage_recovery_limit = 60.0f,
-        .current_recovery_limit = 4.8f,
+        .current_recovery_limit = 10.0f,
         .latch_fault = false     //Remember that the latch option lets you choose between the two settings, 1. either manual reset or  2. automatic reset when the values return to normal
     };
 
@@ -332,12 +350,28 @@ Protection_Init(&my_protection_config);
 //Here we create the tasks Initially so that when counter starts  and give  semaphore  The Task is already present and waiting  to be executed
 pwm_configuration();  //FOR FUTURE TEY BY ALL MEANS TO HANDLE THE CONFIGURATIONS WITH LOGS  HANCE GIVING US MORE INFORMATION 
 create_semaphores_isr();  //Creating the Semaphores for the ISR to use
-intialise_and_start_gptimer();  //Initialising the GPTimer and Starting it
+//intialise_and_start_gptimer();  //Initialising the GPTimer and Starting it
 create_task_MPPT_loop_logic();// 
 create_task_PI_loop_logic();
 create_task_LOG_loop();
 
-Initialise_and_measure_ADC();
+//Initialise_and_measure_ADC();
+
+intialise_and_start_gptimer();
+
+BaseType_t adc_task_ok = xTaskCreate(
+    adc_task_entry,
+    "adc_task",
+    8192,
+    NULL,
+    1,
+    NULL
+);
+
+if (adc_task_ok != pdPASS) {
+    ESP_LOGE(TAG, "Failed to create adc_task");
+}
+
 
 status_leds_set_power_ok(true);
 

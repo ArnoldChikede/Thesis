@@ -121,6 +121,6 @@ if (control_pwm_signal == 0) {
 
 void  MPPT(void) {
 
-Iref = 2.0 ;
+Iref =    1.5 ;
 
 }
