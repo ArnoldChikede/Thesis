@@ -33,9 +33,20 @@
 #define ESP_RMAKER_DEF_PV_INPUT_POWER_NAME  "PV Input Power"
 
 
+#define ESP_RMAKER_DEF_KP_NAME "Kp"
+#define ESP_RMAKER_DEF_KI_NAME "Ki"
+
+#define ESP_RMAKER_DEF_IREF_NAME "Current Reference (A)"
+#define ESP_RMAKER_DEF_MANUAL_REF_MODE_NAME "Manual Ref Mode"
+
 #define ESP_RMAKER_DEF_CONTROL_MODE_NAME "Auto Mode For Current Control"
 
 static esp_rmaker_param_t *duty_cycle_param_create(const char *name, int val);
+
+static esp_rmaker_param_t *current_reference_param_create(const char *name, float val);
+
+static esp_rmaker_param_t *controller_gain_param_create(
+    const char *name, float val, float min, float max, float step);
 
 volatile control_mode_t control_mode = CONTROL_MODE_MANUAL;
 
@@ -85,6 +96,79 @@ static esp_err_t write_cb_for_MPPT_device(const esp_rmaker_device_t *device, con
 
 
     }
+
+
+
+if (strcmp(esp_rmaker_param_get_name(param), ESP_RMAKER_DEF_MANUAL_REF_MODE_NAME) == 0) {
+    bool enable_manual_ref = val.val.b;
+
+    MPPT_set_manual_ref_mode(enable_manual_ref);
+    esp_rmaker_param_update_and_report(param, esp_rmaker_bool(enable_manual_ref));
+
+    ESP_LOGI(TAG, "Manual reference mode = %s", enable_manual_ref ? "ON" : "OFF");
+
+    return ESP_OK;
+}
+
+
+
+if (strcmp(esp_rmaker_param_get_name(param), ESP_RMAKER_DEF_IREF_NAME) == 0) {
+    double new_iref = (double)val.val.f;
+
+    if (!MPPT_get_manual_ref_mode()) {
+        ESP_LOGI(TAG, "Ignoring manual Iref update because Manual Ref Mode is OFF");
+        esp_rmaker_param_update_and_report(param, esp_rmaker_float((float)MPPT_get_iref()));
+        return ESP_OK;
+    }
+
+    MPPT_set_iref(new_iref);
+
+    double iref_now = MPPT_get_iref();
+    ESP_LOGI(TAG, "Updated manual current reference = %.3f A", iref_now);
+    esp_rmaker_param_update_and_report(param, esp_rmaker_float((float)iref_now));
+
+    return ESP_OK;
+}
+
+
+
+
+
+
+
+
+if (strcmp(esp_rmaker_param_get_name(param), ESP_RMAKER_DEF_KP_NAME) == 0) {
+    double new_kp = (double)val.val.f;
+
+    PI_set_kp(new_kp);
+    PI_tuning_state_reset();
+
+    double kp_now = PI_get_kp();
+    ESP_LOGI(TAG, "Updated Kp = %.6f", kp_now);
+    esp_rmaker_param_update_and_report(param, esp_rmaker_float((float)kp_now));
+    return ESP_OK;
+}
+
+if (strcmp(esp_rmaker_param_get_name(param), ESP_RMAKER_DEF_KI_NAME) == 0) {
+    double new_ki = (double)val.val.f;
+
+    PI_set_ki(new_ki);
+    PI_tuning_state_reset();
+
+    double ki_now = PI_get_ki();
+    ESP_LOGI(TAG, "Updated Ki = %.6f", ki_now);
+    esp_rmaker_param_update_and_report(param, esp_rmaker_float((float)ki_now));
+    return ESP_OK;
+}
+
+
+
+
+
+
+
+
+
 
 
     /*if (strcmp(esp_rmaker_param_get_name(param), ESP_RMAKER_DEF_START_STOP_NAME) == 0) {
@@ -218,7 +302,6 @@ if(control_pwm_signal== 0){
 }*/
 
 
-
 if (strcmp(esp_rmaker_param_get_name(param), ESP_RMAKER_DEF_DUTY_UPDATE_NAME) == 0) {
     int duty = val.val.i;
 
@@ -227,12 +310,19 @@ if (strcmp(esp_rmaker_param_get_name(param), ESP_RMAKER_DEF_DUTY_UPDATE_NAME) ==
         return ESP_OK;
     }
 
+    if (duty < 0) {
+        duty = 0;
+    } else if (duty >MAX_DUTY_PERCENT) {    //We can limit Duty here properly to say 80 percent to avoid stressing the system too much in case of user error and also because at very high duty cycles the system might be unstable and we dont want to cause faults by allowing the user to set very high duty cycles in open loop control
+        duty = MAX_DUTY_PERCENT; 
+    }
+
     ESP_LOGI(TAG, "Received value = %d for %s - %s",
              duty,
              esp_rmaker_device_get_name(device),
              esp_rmaker_param_get_name(param));
 
-    esp_rmaker_param_update(param, val);
+    /* report back the clamped value so app stays in sync */
+    esp_rmaker_param_update_and_report(param, esp_rmaker_int(duty));
 
     if (control_mode == CONTROL_MODE_MANUAL) {
         Compare_value = (duty * Period_ticks) / 100;
@@ -247,9 +337,6 @@ if (strcmp(esp_rmaker_param_get_name(param), ESP_RMAKER_DEF_DUTY_UPDATE_NAME) ==
         ESP_LOGI(TAG, "Ignoring manual duty update because system is in AUTOMATIC mode");
     }
 }
-
-
-
 
 
 
@@ -307,6 +394,15 @@ esp_rmaker_device_add_cb(MPPT_device, write_cb_for_MPPT_device, NULL);     //To 
     
 
 
+esp_rmaker_param_t *manual_ref_mode_param =
+    esp_rmaker_power_param_create(ESP_RMAKER_DEF_MANUAL_REF_MODE_NAME, false);
+esp_rmaker_device_add_param(MPPT_device, manual_ref_mode_param);
+
+esp_rmaker_param_t *iref_param =
+    current_reference_param_create(ESP_RMAKER_DEF_IREF_NAME, (float)MPPT_get_iref());
+esp_rmaker_device_add_param(MPPT_device, iref_param);
+
+
 
 
      //Add  another parameeter to controlduty_cycle
@@ -355,6 +451,14 @@ esp_rmaker_device_add_param(MPPT_device, power_param_mppt);
 
 
 
+esp_rmaker_param_t *kp_param =
+    controller_gain_param_create(ESP_RMAKER_DEF_KP_NAME, (float)PI_get_kp(), 0.0f, 5.0f, 0.001f);
+esp_rmaker_device_add_param(MPPT_device, kp_param);
+
+esp_rmaker_param_t *ki_param =
+    controller_gain_param_create(ESP_RMAKER_DEF_KI_NAME, (float)PI_get_ki(), 0.0f, 600.0f, 0.01f);
+esp_rmaker_device_add_param(MPPT_device, ki_param);
+
 
 
     
@@ -374,6 +478,13 @@ params->current          = current_param;
 //params->inductor_current = inductor_current_param;
 params->power            = power_param_mppt;
 
+
+params->kp = kp_param;
+params->ki = ki_param;
+
+
+params->manual_ref_mode = manual_ref_mode_param;
+params->iref = iref_param;
 
 
 }
@@ -405,14 +516,67 @@ static esp_rmaker_param_t *duty_cycle_param_create(const char *name, int val)
     );
 
     if (param) {
-        esp_rmaker_param_add_ui_type(param, ESP_RMAKER_UI_SLIDER);
+        //esp_rmaker_param_add_ui_type(param, ESP_RMAKER_UI_SLIDER);  changing the slider to text because slider is not working properly with the current implementation of the code and we want to test the functionality first and then we can change the ui type later on
+        esp_rmaker_param_add_ui_type(param, ESP_RMAKER_UI_TEXT);
         esp_rmaker_param_add_bounds(param,
                                     esp_rmaker_int(0),
-                                    esp_rmaker_int(100),
+                                     esp_rmaker_int(MAX_DUTY_PERCENT),  //we can revert back to 1 if we want though 
                                     esp_rmaker_int(1));
     }
     return param;
 }
+
+
+
+
+static esp_rmaker_param_t *current_reference_param_create(const char *name, float val)
+{
+    esp_rmaker_param_t *param = esp_rmaker_param_create(
+        name,
+        "esp.param.current",
+        esp_rmaker_float(val),
+        PROP_FLAG_READ | PROP_FLAG_WRITE
+    );
+
+    if (param) {
+        esp_rmaker_param_add_ui_type(param, ESP_RMAKER_UI_TEXT);
+        esp_rmaker_param_add_bounds(param,
+                                    esp_rmaker_float(0.0f),
+                                    esp_rmaker_float(20.0f),
+                                    esp_rmaker_float(0.1f));
+    }
+    return param;
+}
+
+
+
+
+static esp_rmaker_param_t *controller_gain_param_create(
+    const char *name, float val, float min, float max, float step)
+{
+    esp_rmaker_param_t *param = esp_rmaker_param_create(
+        name,
+        "esp.param.gain",
+        esp_rmaker_float(val),
+        PROP_FLAG_READ | PROP_FLAG_WRITE
+    );
+
+    if (param) {
+        esp_rmaker_param_add_ui_type(param, ESP_RMAKER_UI_TEXT);
+        esp_rmaker_param_add_bounds(param,
+                                    esp_rmaker_float(min),
+                                    esp_rmaker_float(max),
+                                    esp_rmaker_float(step));
+    }
+    return param;
+}
+
+
+
+
+
+
+
 
 
  void update_yellow_led_state(void)

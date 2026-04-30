@@ -3,6 +3,9 @@
 #define GEN_PIN 25
 #define GEN_PIN_2 23
 
+#define MAX_DUTY_PERCENT 80
+#define MAX_DUTY_RATIO   (MAX_DUTY_PERCENT / 100.0)
+
 extern float Duty_Ratio;
 extern float Duty_Ratio_2;
 extern int PWM_Frequency;

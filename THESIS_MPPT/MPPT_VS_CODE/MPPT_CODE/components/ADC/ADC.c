@@ -52,7 +52,7 @@
  * Its value is in Hz.
  */
 #define PWM_FREQ_HZ                         80000
-#define SAMPLES_PER_PWM_PER_CH              10
+#define SAMPLES_PER_PWM_PER_CH              1
 #define PWM_BOUNDARY_DIVIDER                32
 
 #define SAMPLE_FREQUENCY_KZ                 (PWM_FREQ_HZ * SAMPLES_PER_PWM_PER_CH * NUMBER_OF_PATTERNS)

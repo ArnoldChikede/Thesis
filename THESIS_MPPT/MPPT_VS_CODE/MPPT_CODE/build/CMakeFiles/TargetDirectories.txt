@@ -1082,10 +1082,3 @@ C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC_Oneshot/CMakeFiles/install.dir
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC_Oneshot/CMakeFiles/install/local.dir
 C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/ADC_Oneshot/CMakeFiles/install/strip.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PI_Controller/CMakeFiles/__idf_PI_Controller.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PI_Controller/CMakeFiles/edit_cache.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PI_Controller/CMakeFiles/rebuild_cache.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PI_Controller/CMakeFiles/list_install_components.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PI_Controller/CMakeFiles/install.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PI_Controller/CMakeFiles/install/local.dir
-C:/Users/Arnold/Desktop/Thesis/THESIS_MPPT/MPPT_VS_CODE/MPPT_CODE/build/esp-idf/PI_Controller/CMakeFiles/install/strip.dir

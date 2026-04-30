@@ -28,22 +28,23 @@ Plecs {
   AlgebraicLoopWithStateMachineMsg "3"
   AssertionAction "1"
   FixedPointDatatypeOverride "1"
-  InitializationCommands "Vmppt= 17.6000 ;%20;\nImppt= 3.6900 ;%15;\nVout = 60"
-";\nI_q=Imppt;\nV_q=Vout;\nfs=20e3 %25e3;\nTs=1/fs;\n\nCin =  3.2759e-07; %3.7"
-"500e-06;\nCout= 100e-06 %75e-06;\n\nL = 220e-06     %220   330       %370e-06"
-"     %500e-06;\nL_ESR=1.38e-3; %The should be less than 1%\n %of the load res"
-"isatance so as not to affect the \n %conversion ratio of the converter \n\nRo"
-"ut= 47 % 55.4324%12;\nD_cycle = 0.5; %0.7067  % 0.671;\nD_prime = 1-D_cycle;"
-"\nNs=300;  % samples for the moving avg filter\n\n\nRon=1e-3;\n\n\n\n%Small s"
-"ignal Part \n\n%v_mppt_hat ; \n%d_cycle_hat ;\n%d_prime_hat ;\nd_ss =0.012   "
-" %0.012 %-0.004;  %found out dss to be 0.012 for perfect linear approximation"
-" \nvin_ss=5;\nstep_time = 0.20;\n\n%Transfer functions \n\n\nVout = 60;\nGdo="
-" Vout/D_prime;\nGgo=1/D_prime;\nWz=(Rout*D_prime^2)/L ;\nQ=  D_prime*Rout*sqr"
-"t(Cout/L);\nWo= D_prime/sqrt(L*Cout);\n \n \n %Time constants\n T_L = L/L_ESR"
-";\n T_C = Rout*Cout\n A=(Vout*D_prime^2)/Rout\n \n \n \n %Controller Paramete"
-"rs \n  \nkp = 0.0654426 %0.194502 %0.07             %0.3925 %0.45      %0.392"
-";0.4 %\nki =363.57%250; \n\n%MPPT \nMPPT_Ts =1/100 ;\n\n\n\nGid_main = 2*Vout"
-"/((1-D_cycle)^2*Rout)"
+  InitializationCommands "Vmppt= 17.6000; %20;\nImppt= 3.6900 ;%15;\nVout = 60"
+";\nI_q=Imppt;\nV_q=Vout;\nfs=80e3 %25e3;\nTs=1/fs;\nRmppt = Vmppt/Imppt;\nRbo"
+"ost = Rmppt;\n\n\n\nCin =  100e-06; %3.7500e-06;\nCout= 100e-06 %75e-06;\n\nL"
+" = 220e-06     %220   330       %370e-06     %500e-06;\nL_ESR=1.38e-3; %0.035"
+"    %0.035 %The should be less than 1%\n %of the load resisatance so as not t"
+"o affect the \n %conversion ratio of the converter \n\nRout= 47 %55.4324%12;"
+"\nD_cycle = D_cycle= 1- (sqrt(Rboost/Rout)) % 0.7067  % 0.671;\nD_prime = 1-D"
+"_cycle;\nNs=300;  % samples for the moving avg filter\n\n\nRon=1e-3;\n\n\n\n%"
+"Small signal Part \n\n%v_mppt_hat ; \n%d_cycle_hat ;\n%d_prime_hat ;\nd_ss =0"
+".012    %0.012 %-0.004;  %found out dss to be 0.012 for perfect linear approx"
+"imation \nvin_ss=5;\nstep_time = 0.20;\n\n%Transfer functions \n\n\nVout = 60"
+";\nGdo= Vout/D_prime;\nGgo=1/D_prime;\nWz=(Rout*D_prime^2)/L ;\nQ=  D_prime*R"
+"out*sqrt(Cout/L);\nWo= D_prime/sqrt(L*Cout);\n \n \n %Time constants\n T_L = "
+"L/L_ESR;\n T_C = Rout*Cout\n A=(Vout*D_prime^2)/Rout\n \n \n \n %Controller P"
+"arameters \n  \nkp = 0.1;%0.0654426 %0.194502 %0.07             %0.3925 %0.45"
+"      %0.392;0.4 %\nki = 40; \n\n%MPPT \nMPPT_Ts =1/100 ;\n\n\n\nGid_main = 2"
+"*Vout/((1-D_cycle)^2*Rout)"
   InitialState  "1"
   SystemState   ""
   TaskingMode   "1"
@@ -69,7 +70,7 @@ Plecs {
   ScriptsDialogSplitterPos "95"
   Schematic {
     Location      [0, 23; 1366, 681]
-    ZoomFactor    0.445254
+    ZoomFactor    0.667273
     SliderPosition [0, 0]
     ShowBrowser   off
     BrowserWidth  100
@@ -185,7 +186,7 @@ Plecs {
       }
       Parameter {
         Variable      "v_init"
-        Value         "Vout "
+        Value         "Vmppt"
         Show          off
       }
     }
@@ -367,7 +368,7 @@ Plecs {
       Type          Goto
       Name          "Goto4"
       Show          off
-      Position      [920, 165]
+      Position      [925, 160]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -731,20 +732,19 @@ Plecs {
       Direction     up
       Flipped       off
       LabelPosition south
-      Location      [0, 23; 1366, 700]
+      Location      [-1919, -191; -553, 496]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAAAAAAAAPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAAKwA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
 "///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAVWAAAAW/w"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAABVYAAABQAP///wAABVYAAAIrAAAA"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAABVYAAABQAP///wAABVYAAAI1AAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
-      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAA"
-"QAAAGQAAAADAAAAZAAAAAIAAABkAAAACQAAAGQAAAAIAAAAZAAAAAUAAABkAAAABAAAAGQAAAAHAA"
-"AAZAAAAAYAAABkAAAFRQAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAC0AAA"
-"AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
-"AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
-"ASRAAAAAQAAAAAAAAPoAAAAACQ="
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL2AMAAAAGAAAAB"
+"AAAAGQAAAAHAAAAZAAAAAYAAABkAAAAAwAAAGQAAAAJAAAAZAAAAAgAAABkAAAFRQAAAAsBAAABAA"
+"AAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAC0AAAAAQAAAAAAAABkAAAAAQAAAAAAAABkAAA"
+"AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAABkAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
+"AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAANlAAAAAQAAAAAAAAPoAAAAACQ="
       PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA"
 "AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 "AAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -780,7 +780,7 @@ Plecs {
         BaselineValue 0
       }
       Axis {
-        Name          "Iref vs IL"
+        Name          ""
         AutoScale     1
         MinValue      0
         MaxValue      1
@@ -791,7 +791,7 @@ Plecs {
         BaselineValue 0
       }
       Axis {
-        Name          ""
+        Name          "Iref vs IL"
         AutoScale     1
         MinValue      0
         MaxValue      1
@@ -1222,7 +1222,7 @@ Plecs {
       LabelPosition east
       Parameter {
         Variable      "R"
-        Value         "0.01"
+        Value         "0.0001"
         Show          off
       }
     }
@@ -2507,22 +2507,22 @@ Plecs {
       Direction     up
       Flipped       off
       LabelPosition south
-      Location      [0, 27; 1366, 754]
+      Location      [-230, 198; 1370, 1065]
       State         "AAAA/wAAAAD9AAAAAgAAAAEAAAC0AAAB+fwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAAKwA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAvAA"
-"AB+QAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAVWAAAAcPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAABVYAAABQAP///wAABVYAAAJIAAAA"
+"AB+QAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAZAAAAAcPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAABkAAAABQAP///wAABkAAAALUAAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAEAAAAYAFMAYQB2AGUAZAAgAHYAaQBlAHcAIAAxAAAAAAAAA"
 "AA/8AAAAAAAAAAAAAQAf/gAAAAAAAB/+AAAAAAAAAB/+AAAAAAAAH/4AAAAAAAAAH/4AAAAAAAAf/"
 "gAAAAAAAAAf/gAAAAAAAB/+AAAAAAAAAEAAAAAAAAAAD/Kedsi0OVhAA=="
-      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAA"
-"wAAAGQAAAACAAAAZAAAAAEAAABkAAAABwAAAGQAAAAGAAAAZAAAAAUAAABkAAAABAAAAGQAAAAJAA"
-"AAZAAAAAgAAABkAAAFVgAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAC1AAA"
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
+"QAAAGQAAAAIAAAAZAAAAAcAAABkAAAABgAAAGQAAAAFAAAAZAAAAAQAAABkAAAAAwAAAGQAAAACAA"
+"AAZAAAAAEAAABkAAAGQAAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAC1AAA"
 "AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
 "AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
-"AShAAAAAQAAAAAAAAPoAAAAACQ="
+"AWLAAAAAQAAAAAAAAPoAAAAACQ="
       PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA"
 "AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 "AAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
@@ -2720,7 +2720,7 @@ Plecs {
       Type          Scope
       Name          "Scope7"
       Show          on
-      Position      [1350, 1180]
+      Position      [1225, 1170]
       Direction     up
       Flipped       off
       LabelPosition south
@@ -2803,7 +2803,7 @@ Plecs {
       Type          From
       Name          "From22"
       Show          off
-      Position      [1290, 1190]
+      Position      [1165, 1180]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -2822,7 +2822,7 @@ Plecs {
       Type          From
       Name          "From25"
       Show          off
-      Position      [1290, 1170]
+      Position      [1165, 1160]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -3152,17 +3152,17 @@ Plecs {
       LabelPosition south
       Parameter {
         Variable      "Time"
-        Value         "0.1"
+        Value         "0.5"
         Show          off
       }
       Parameter {
         Variable      "Before"
-        Value         "D_cycle*0"
+        Value         "0"
         Show          off
       }
       Parameter {
         Variable      "After"
-        Value         "D_cycle + d_ss*0"
+        Value         "D_cycle"
         Show          off
       }
       Parameter {
@@ -4660,7 +4660,7 @@ Plecs {
       LabelPosition south
       Parameter {
         Variable      "Tag"
-        Value         "iref"
+        Value         "iref_c_code"
         Show          off
       }
       Parameter {
@@ -5141,7 +5141,7 @@ Plecs {
       LabelPosition south
       Parameter {
         Variable      "DialogGeometry"
-        Value         "[1 31 681 688]"
+        Value         "[-1011 226 423 314]"
         Show          off
       }
       Parameter {
@@ -5222,7 +5222,7 @@ Plecs {
 " why i dont use Preprocessor Macros eg  #define\n"
 "double IL= 0.0;\n"
 "double Error = 0.0 ; \n"
-"double Error_Prev = 0.0 ; \n"
+"static double Error_Prev = 0.0 ; \n"
 "\n"
 " double Kp_contribution =  0.0 ;\n"
 " double Ki_contribution = 0.0; \n"
@@ -5247,7 +5247,7 @@ Plecs {
         Variable      "StartFcn"
         Value         "kp = ParamRealData(0,0);\n"
 "ki = ParamRealData(0,1);\n"
-"Ts = ParamRealData(0,2);"
+"Ts = 0.001;//ParamRealData(0,2);"
         Show          off
       }
       Parameter {
@@ -5288,7 +5288,7 @@ Plecs {
 "else { PI_Controller_Output_Saturation_Block = PI_Controller_Output; }\n"
 "\n"
 " duty_control_signal =  PI_Controller_Output_Saturation_Block ;\n"
-"  \n"
+" //duty_control_signal = 0.704; \n"
 "   \n"
 " Satuaration_block_state_2_input  =  (PI_Controller_Output  - PI_Controller_O"
 "utput_Saturation_Block)* 1/kp ;\n"
@@ -5514,7 +5514,7 @@ Plecs {
       Type          Subsystem
       Name          "PV string"
       Show          on
-      Position      [165, 75]
+      Position      [35, 100]
       Direction     up
       Flipped       off
       LabelPosition south
@@ -5946,7 +5946,7 @@ Plecs {
       Type          Step
       Name          "IRRADIANCE \nSTEP<0-1>"
       Show          on
-      Position      [95, 75]
+      Position      [35, 30]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -6050,7 +6050,7 @@ Plecs {
       Type          Step
       Name          "d_ss1"
       Show          on
-      Position      [1505, 930]
+      Position      [1495, 930]
       Direction     right
       Flipped       on
       LabelPosition south
@@ -6137,20 +6137,20 @@ Plecs {
       Direction     up
       Flipped       off
       LabelPosition south
-      Location      [0, 27; 1370, 756]
-      State         "AAAA/wAAAAD9AAAAAgAAAAEAAAC0AAACSvwCAAAAA/sAAAAQAFoAbwBvA"
+      Location      [-472, 138; 1128, 957]
+      State         "AAAA/wAAAAD9AAAAAgAAAAEAAAC0AAACpPwCAAAAA/sAAAAQAFoAbwBvA"
 "G0AQQByAGUAYQAAAAAA/////wAAAIQA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAA//"
-"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMBAAAALwAAAkoAAABmAP///wAAAAMAAAVaAAAAcPw"
-"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAABVoAAABQAP///wAABKIAAAJKAAAA"
+"///wAAAGYA////+wAAAAwAVAByAGEAYwBlAHMBAAAALwAAAqQAAABmAP///wAAAAMAAAZAAAAAcPw"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAABkAAAABQAP///wAABYgAAAKkAAAA"
 "BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
 "AAAAA=="
       SavedViews    "AAAAAgAAAAA="
       HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAL/gMAAAAJAAAAC"
-"AAAAGQAAAAJAAAAZAAAAAQAAABkAAAABQAAAGQAAAAGAAAAZAAAAAcAAABkAAAAAQAAAGQAAAACAA"
-"AAZAAAAAMAAABkAAAFWgAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAADIAAA"
+"QAAAGQAAAAIAAAAZAAAAAcAAABkAAAABgAAAGQAAAAFAAAAZAAAAAQAAABkAAAAAwAAAGQAAAACAA"
+"AAZAAAAAEAAABkAAAGQAAAAAsBAAABAAAAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAADIAAA"
 "AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAA"
 "AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAA"
-"ASSAAAAAQAAAAAAAAPoAAAAACQ="
+"AV4AAAAAQAAAAAAAAPoAAAAACQ="
       PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA"
 "AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
 "=="
@@ -6397,23 +6397,23 @@ Plecs {
       Type          Step
       Name          "Step9"
       Show          on
-      Position      [625, 420]
-      Direction     down
-      Flipped       off
-      LabelPosition west
+      Position      [600, 420]
+      Direction     up
+      Flipped       on
+      LabelPosition east
       Parameter {
         Variable      "Time"
-        Value         "0.05"
+        Value         "0.2"
         Show          off
       }
       Parameter {
         Variable      "Before"
-        Value         "2"
+        Value         "0"
         Show          off
       }
       Parameter {
         Variable      "After"
-        Value         "3"
+        Value         "1.5"
         Show          off
       }
       Parameter {
@@ -6607,7 +6607,7 @@ Plecs {
       Type          SignalMux
       Name          "Mux11"
       Show          off
-      Position      [1400, 1165]
+      Position      [1275, 1155]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -6621,7 +6621,7 @@ Plecs {
       Type          Scope
       Name          "Scope29"
       Show          on
-      Position      [1455, 1165]
+      Position      [1330, 1155]
       Direction     up
       Flipped       off
       LabelPosition south
@@ -6977,7 +6977,7 @@ Plecs {
       Type          Ammeter
       Name          "Am9"
       Show          on
-      Position      [345, 295]
+      Position      [345, 275]
       Direction     up
       Flipped       off
       LabelPosition west
@@ -6986,7 +6986,7 @@ Plecs {
       Type          Goto
       Name          "Goto26"
       Show          off
-      Position      [375, 295]
+      Position      [415, 295]
       Direction     right
       Flipped       off
       LabelPosition south
@@ -7554,13 +7554,13 @@ Plecs {
       Type          Goto
       Name          "Goto35"
       Show          off
-      Position      [655, 410]
+      Position      [655, 395]
       Direction     up
       Flipped       off
       LabelPosition east
       Parameter {
         Variable      "Tag"
-        Value         "Step9"
+        Value         "iref_c_code"
         Show          off
       }
       Parameter {
@@ -7579,26 +7579,7 @@ Plecs {
       LabelPosition south
       Parameter {
         Variable      "Tag"
-        Value         "Step9"
-        Show          off
-      }
-      Parameter {
-        Variable      "Visibility"
-        Value         "1"
-        Show          off
-      }
-    }
-    Component {
-      Type          From
-      Name          "From70"
-      Show          off
-      Position      [315, 405]
-      Direction     right
-      Flipped       off
-      LabelPosition south
-      Parameter {
-        Variable      "Tag"
-        Value         "I_L"
+        Value         "iref_c_code"
         Show          off
       }
       Parameter {
@@ -7618,6 +7599,168 @@ Plecs {
       Parameter {
         Variable      "Tag"
         Value         "I_L"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          Scope
+      Name          "Scope5"
+      Show          on
+      Position      [1755, 190]
+      Direction     up
+      Flipped       off
+      LabelPosition south
+      Location      [-1920, -199; 0, 790]
+      State         "AAAA/wAAAAD9AAAAAgAAAAEAAAC0AAAB+fwCAAAAA/sAAAAQAFoAbwBvA"
+"G0AQQByAGUAYQAAAAAA/////wAAAFwA////+wAAABQAUwBhAHYAZQBkAFYAaQBlAHcAcwAAAAAvAA"
+"AB+QAAAGYA////+wAAAAwAVAByAGEAYwBlAHMAAAAAAP////8AAABmAP///wAAAAMAAAeAAAAAY/w"
+"BAAAAAfsAAAAUAEQAYQB0AGEAVwBpAGQAZwBlAHQBAAAAAAAAB4AAAABQAP///wAAB4AAAANbAAAA"
+"BAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAEAAAAOAFQAbwBvAGwAQgBhAHIBAAAAAP////8AAAAAA"
+"AAAAA=="
+      SavedViews    "AAAAAgAAAAEAAAAYAFMAYQB2AGUAZAAgAHYAaQBlAHcAIAAxAAAAAAAAA"
+"AA/8AAAAAAAAAAAAAIAf/gAAAAAAAB/+AAAAAAAAAB/+AAAAAAAAH/4AAAAAAAAAQAAAAAAAAAAP8"
+"p52yLQ5WEA"
+      HeaderState   "AAAA/wAAAAAAAAABAAAAAQAAAAAAAAAAAAAAAAAAAAALeAMAAAAGAAAAB"
+"QAAAGQAAAAEAAAAZAAAAAYAAABkAAAAAwAAAGQAAAAJAAAAZAAAAAgAAABkAAAHbwAAAAsBAAABAA"
+"AAAAAAAAAAAAAAZP////8AAACBAAAAAAAAAAsAAAC1AAAAAQAAAAAAAABkAAAAAQAAAAAAAABkAAA"
+"AAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAABk"
+"AAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAWOAAAAAQAAAAAAAAPoAAAAACQ="
+      PlotPalettes  "AAAAAQAAAAEAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA"
+"AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+      Axes          "2"
+      TimeRange     "0"
+      ScrollingMode "1"
+      SingleTimeAxis "1"
+      Open          "1"
+      Ts            "-1"
+      SampleLimit   "0"
+      XAxisLabel    "Time / s"
+      ShowLegend    "1"
+      Axis {
+        Name          "Inductor Current "
+        AutoScale     1
+        MinValue      0
+        MaxValue      1
+        Signals       {}
+        SignalTypes   [ ]
+        AxisLabel     "A"
+        Untangle      0
+        KeepBaseline  off
+        BaselineValue 0
+      }
+      Axis {
+        Name          "Output Voltage "
+        AutoScale     1
+        MinValue      0
+        MaxValue      1
+        Signals       {}
+        SignalTypes   [ ]
+        AxisLabel     "V"
+        Untangle      0
+        KeepBaseline  off
+        BaselineValue 0
+      }
+      Fourier {
+        SingleXAxis       on
+        AxisLabel         "Frequency / Hz"
+        Scaling           0
+        PhaseDisplay      0
+        ShowFourierLegend off
+        Axis {
+          Name          ""
+          AutoScale     1
+          MinValue      0
+          MaxValue      1
+          Signals       {}
+          Untangle      0
+          KeepBaseline  off
+          BaselineValue 0
+        }
+        Axis {
+          Name          ""
+          AutoScale     1
+          MinValue      0
+          MaxValue      1
+          Signals       {}
+          Untangle      0
+          KeepBaseline  off
+          BaselineValue 0
+        }
+      }
+    }
+    Component {
+      Type          From
+      Name          "From38"
+      Show          off
+      Position      [1695, 180]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "I_L"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          From
+      Name          "From39"
+      Show          off
+      Position      [1710, 230]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "I_PV"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          From
+      Name          "From40"
+      Show          off
+      Position      [1710, 245]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "sw_1"
+        Show          off
+      }
+      Parameter {
+        Variable      "Visibility"
+        Value         "1"
+        Show          off
+      }
+    }
+    Component {
+      Type          From
+      Name          "From72"
+      Show          off
+      Position      [1705, 195]
+      Direction     right
+      Flipped       off
+      LabelPosition south
+      Parameter {
+        Variable      "Tag"
+        Value         "VOUT"
         Show          off
       }
       Parameter {
@@ -8404,7 +8547,7 @@ Plecs {
       Type          Signal
       SrcComponent  "From22"
       SrcTerminal   1
-      Points        [1320, 1190]
+      Points        [1195, 1180]
       DstComponent  "Scope7"
       DstTerminal   2
     }
@@ -8849,14 +8992,14 @@ Plecs {
       Type          Signal
       SrcComponent  "From25"
       SrcTerminal   1
-      Points        [1310, 1170]
+      Points        [1185, 1160]
       Branch {
-        Points        [1310, 1175]
+        Points        [1185, 1165]
         DstComponent  "Scope7"
         DstTerminal   1
       }
       Branch {
-        Points        [1310, 1160]
+        Points        [1185, 1150]
         DstComponent  "Mux11"
         DstTerminal   2
       }
@@ -9035,6 +9178,7 @@ Plecs {
       Type          Signal
       SrcComponent  "Am9"
       SrcTerminal   3
+      Points        [360, 285; 355, 285; 355, 295]
       DstComponent  "Goto26"
       DstTerminal   1
     }
@@ -9047,23 +9191,9 @@ Plecs {
     }
     Connection {
       Type          Signal
-      SrcComponent  "Step1"
-      SrcTerminal   1
-      Points        [815, 645]
-      Branch {
-        DstComponent  "Goto8"
-        DstTerminal   1
-      }
-      Branch {
-        Points        [825, 645]
-        DstComponent  "Comparator"
-        DstTerminal   1
-      }
-    }
-    Connection {
-      Type          Signal
       SrcComponent  "IRRADIANCE \nSTEP<0-1>"
       SrcTerminal   1
+      Points        [55, 65; 10, 65]
       DstComponent  "PV string"
       DstTerminal   3
     }
@@ -9312,7 +9442,7 @@ Plecs {
       Type          Signal
       SrcComponent  "Step9"
       SrcTerminal   1
-      Points        [625, 450; 655, 450]
+      Points        [600, 450; 655, 450]
       Branch {
         DstComponent  "Mux5"
         DstTerminal   2
@@ -9373,6 +9503,36 @@ Plecs {
       DstComponent  "Goto10"
       DstTerminal   1
     }
+    Connection {
+      Type          Signal
+      SrcComponent  "From38"
+      SrcTerminal   1
+      Points        [1725, 180]
+      DstComponent  "Scope5"
+      DstTerminal   1
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "From72"
+      SrcTerminal   1
+      DstComponent  "Scope5"
+      DstTerminal   2
+    }
+    Connection {
+      Type          Signal
+      SrcComponent  "Step1"
+      SrcTerminal   1
+      Points        [815, 645]
+      Branch {
+        DstComponent  "Goto8"
+        DstTerminal   1
+      }
+      Branch {
+        Points        [825, 645]
+        DstComponent  "Comparator"
+        DstTerminal   1
+      }
+    }
     RectangleAnnotation {
       Position     [2185, 1035]
       Width        260
@@ -9415,7 +9575,7 @@ Plecs {
       Name          "<html><body>\n<p><span style=\" font-size:25px; color:#00"
 "00ff;\">SWITCHED    MODEL </span></p>\n<p><span style=\" font-size:25px; colo"
 "r:#0000ff;\"> </span></p></body></html>"
-      Position      [645, 75]
+      Position      [435, 40]
     } 
     RectangleAnnotation {
       Position     [1390, 1075]
@@ -9425,7 +9585,7 @@ Plecs {
       Thickness    2
       PenColor     4278190080
       PenAlpha     1
-      BrushColor   4291342779
+      BrushColor   4294967295
       BrushAlpha   1
     } 
     Annotation {
@@ -9591,23 +9751,23 @@ Plecs {
       Thickness    2
       PenColor     4278190080
       PenAlpha     1
-      BrushColor   4289374975
+      BrushColor   4294967295
       BrushAlpha   1
     } 
     Annotation {
       Name          "<html><body>\n<p><span style=\" font-size:24px; color:#2a"
-"4fc8;\">PV PANEL SCOPES</span></p></body></html>"
+"4fc8;\">PV </span></p></body></html>"
       Position      [160, 350]
     } 
     Annotation {
       Name          "<html><body>\n<p><span style=\" font-size:24px; color:#2a"
-"4fc8;\">MPPT C-CODE</span></p></body></html>"
+"4fc8;\">MPPT</span></p></body></html>"
       Position      [425, 350]
     } 
     Annotation {
       Name          "<html><body>\n<p><span style=\" font-size:24px; color:#2a"
-"4fc8;\">PI C-CODE </span></p></body></html>"
-      Position      [770, 350]
+"4fc8;\">PI </span></p></body></html>"
+      Position      [785, 350]
     } 
     RectangleAnnotation {
       Position     [295, 685]
@@ -9708,7 +9868,7 @@ Plecs {
       Thickness    2
       PenColor     4278190080
       PenAlpha     1
-      BrushColor   4287481800
+      BrushColor   4294967295
       BrushAlpha   1
     } 
   }

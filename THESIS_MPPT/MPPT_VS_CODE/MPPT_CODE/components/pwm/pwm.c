@@ -201,12 +201,21 @@ void pwm_configuration(void)
 
 void update_compare_value(int Compare_Value)
 {
+
+     int max_compare = (MAX_DUTY_PERCENT * Period_ticks) / 100;
+     
     if (Compare_Value < 0) {
         Compare_Value = 0;
     }
-    if (Compare_Value > Period_ticks) {
-        Compare_Value = Period_ticks;
+
+
+    if (Compare_Value > max_compare) {
+        Compare_Value = max_compare;
     }
+
+    //if (Compare_Value > Period_ticks) {
+    //    Compare_Value = Period_ticks;
+   // }
 
     Compare_value = Compare_Value;
 

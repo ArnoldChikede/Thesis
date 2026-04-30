@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdbool.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 #include "MPPT.h"
 #include "ADC.h"
 #include "pwm.h"
@@ -14,7 +17,7 @@
 double MPPT_Ts; //Remeber this is supposed to be set as a Value From How the Task is going to run in FreeRTOS
                 //And we Kind of not use it here 
 double delta_Iref = DELTA_I_REF ; //0.02; 
- double Iref = 2.0;
+ double Iref = 0.0;
 static double P_PV_PREV = 0.0 ;
 static double V_PV_PREV = 0.0 ;
  
@@ -23,6 +26,50 @@ double delta_V ;
 
 double IREF_MAX = 20; 
 //int I_PV_Init  ;
+
+
+static volatile bool manual_ref_mode = false;
+static portMUX_TYPE mppt_ref_mux = portMUX_INITIALIZER_UNLOCKED;
+
+void MPPT_set_iref(double new_iref)
+{
+    if (!isfinite(new_iref) || new_iref < 0.0) {
+        new_iref = 0.0;
+    }
+    if (new_iref > IREF_MAX) {
+        new_iref = IREF_MAX;
+    }
+
+    taskENTER_CRITICAL(&mppt_ref_mux);
+    Iref = new_iref;
+    taskEXIT_CRITICAL(&mppt_ref_mux);
+}
+
+double MPPT_get_iref(void)
+{
+    double value;
+    taskENTER_CRITICAL(&mppt_ref_mux);
+    value = Iref;
+    taskEXIT_CRITICAL(&mppt_ref_mux);
+    return value;
+}
+
+void MPPT_set_manual_ref_mode(bool enable)
+{
+    taskENTER_CRITICAL(&mppt_ref_mux);
+    manual_ref_mode = enable;
+    taskEXIT_CRITICAL(&mppt_ref_mux);
+}
+
+bool MPPT_get_manual_ref_mode(void)
+{
+    bool value;
+    taskENTER_CRITICAL(&mppt_ref_mux);
+    value = manual_ref_mode;
+    taskEXIT_CRITICAL(&mppt_ref_mux);
+    return value;
+}
+
 
 
 
@@ -121,6 +168,11 @@ if (control_pwm_signal == 0) {
 
 void  MPPT(void) {
 
-Iref =    1.5 ;
+ if (MPPT_get_manual_ref_mode()) {
+        return;
+    }
+    
+
+//Iref =    1.5 ;
 
 }

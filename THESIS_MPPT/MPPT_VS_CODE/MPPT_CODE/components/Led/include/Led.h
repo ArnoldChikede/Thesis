@@ -10,15 +10,20 @@ typedef struct {
     esp_rmaker_param_t *current;
     esp_rmaker_param_t *inductor_current;
     esp_rmaker_param_t *power;
+
+    esp_rmaker_param_t *kp;
+    esp_rmaker_param_t *ki;
+    esp_rmaker_param_t *iref;
+    esp_rmaker_param_t *manual_ref_mode;
 } mppt_rmaker_params_t;             
 
 
-typedef enum {
-    CONTROL_MODE_MANUAL = 0,
-    CONTROL_MODE_AUTOMATIC = 1
-} control_mode_t;
+//typedef enum {
+  //  CONTROL_MODE_MANUAL = 0,
+   // CONTROL_MODE_AUTOMATIC = 1
+//} control_mode_t;
 
-extern volatile control_mode_t control_mode;
+//extern volatile control_mode_t control_mode;
 
 
 

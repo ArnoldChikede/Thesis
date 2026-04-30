@@ -24,7 +24,7 @@ gptimer_handle_t gptimer_PI = NULL;
 gptimer_config_t timer_config_PI = {
     .clk_src = GPTIMER_CLK_SRC_DEFAULT, // Select the default clock source
     .direction = GPTIMER_COUNT_UP,      // Counting direction is up
-    .resolution_hz = 1 * 1000 * 1000,   // Resolution is 1 MHz, i.e., 1 tick equals 1 microsecond
+    .resolution_hz = 1 * 1000 * 1000,   
 };
 
 
@@ -97,26 +97,27 @@ static bool example_timer_on_alarm_cb_MPPT(gptimer_handle_t timer,
 //}
 
 
+//static bool example_timer_on_alarm_cb_PI(gptimer_handle_t timer,
+                                        // const gptimer_alarm_event_data_t *edata,
+                                       //  void *user_ctx)
+//{
+  //  return false;
+//}
+
+
+
 static bool example_timer_on_alarm_cb_PI(gptimer_handle_t timer,
                                          const gptimer_alarm_event_data_t *edata,
                                          void *user_ctx)
 {
-    return false;
+    BaseType_t high_task_wakeup = pdFALSE;
+
+    if (xSemaphore_control_PI_loop_logic != NULL) {
+        xSemaphoreGiveFromISR(xSemaphore_control_PI_loop_logic, &high_task_wakeup);
+    }
+
+    return (high_task_wakeup == pdTRUE);
 }
-  //i can always come back to it 
-//static bool example_timer_on_alarm_cb_PI(gptimer_handle_t timer,
-                                      //   const gptimer_alarm_event_data_t *edata,
-                                     //    void *user_ctx)
-//{
-    //BaseType_t high_task_wakeup = pdFALSE;
-
-    //if (xSemaphore_control_PI_loop_logic != NULL) {
-    //    xSemaphoreGiveFromISR(xSemaphore_control_PI_loop_logic, &high_task_wakeup);
-   // }
-
-    //return (high_task_wakeup == pdTRUE);
-//}
-
 
 
 static bool example_timer_on_alarm_cb_LOG(gptimer_handle_t timer,
@@ -154,7 +155,7 @@ gptimer_alarm_config_t alarm_config_PI = {
 
     .reload_count = 0,      // When the alarm event occurs, the timer will automatically reload to 0
 
-    .alarm_count = 1000,// 1000, // Set the actual alarm period, since the resolution is 1us, 1000000 represents 1s
+    .alarm_count = 1000, //need to make sure it's 12.5 1000, // Set the actual alarm period, since the resolution is 1us, 1000000 represents 1s
 
 //period_seconds = alarm_count / resolution_hz
 

@@ -200,17 +200,14 @@ void task_to_Calculate_PI(void *pvParameters)
     }
 
     // Main loop: task stays alive forever
-      printf(" Entering loop for running PI loop logic\n");
+    //   printf("PI task started and waiting for semaphore\n");
     while (1)
     {
         // Wait for the semaphore (blocks task, frees CPU)
         if (xSemaphoreTake(xSemaphore_control_PI_loop_logic, portMAX_DELAY) == pdTRUE)
         {
            
-       // if (ADC_ReadCurrentSample() != ESP_OK)
-//{
-   // continue;
-//}
+      
 
             pi_loop_execution_count++;
             // printf("running PI loop logic\n");
@@ -218,7 +215,7 @@ void task_to_Calculate_PI(void *pvParameters)
 
 
 
-            if (Protection_FaultActive()) {
+            if (Protection_FaultActive()) {     
              continue;
                  }
 
@@ -228,7 +225,7 @@ void task_to_Calculate_PI(void *pvParameters)
                        continue;
                 }
 
-
+                 
             PI_control();  // Run PI control loop
 
             // Optional: if you want, you can rate-limit or conditionally update cloud params here
@@ -260,12 +257,9 @@ void task_to_Log_System_State(void *pvParameters)
     {
         if (xSemaphoreTake(xSemaphore_control_LOG_loop, portMAX_DELAY) == pdTRUE)
         {
-           printf("LOG | V_PV=%.3f V | V_BOOST=%.3f V | I_PV=%.3f A\n",
-                   V_PV, V_BOOST, I_PV);
-            //pwm_frequency_calculation();
-           //  printf("I = %f\n", I_PV);
-           printf("FAULT: Duty Cycle is  %f \n", duty_control_signal);
-
+         printf("LOG | V_PV=%.3f V | V_BOOST=%.3f V | I_PV=%.3f A | Iref=%.3f A | ManualRef=%d\n",
+          V_PV, V_BOOST, I_PV, MPPT_get_iref(), MPPT_get_manual_ref_mode());
+        printf("Duty Cycle is %.6f\n", duty_control_signal);
          /*/uint32_t trigger_now = pwm_sample_trigger_count;
             uint32_t pi_now = pi_loop_execution_count;
 
